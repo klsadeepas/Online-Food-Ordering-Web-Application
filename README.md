@@ -22,25 +22,21 @@ relying on external frameworks.
 
 ## Image 3
 
-![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/3.png)
+![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/4.png)
 
 ## Image 4
 
-![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/4.png)
+![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/5.png)
 
 ## Image 5
 
-![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/5.png)
+![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/6.png)
 
 ## Image 6
 
-![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/6.png)
-
-## Image 7
-
 ![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/8.png)
 
-## Image 8
+## Image 7
 
 ![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/9.png)
 
