@@ -1053,18 +1053,18 @@
 <nav id="navbar">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
     <!-- Logo -->
-    <div class="flex items-center gap-2 cursor-pointer" onclick="navigate(&#39;home&#39;)">
+    <div class="flex items-center gap-2 cursor-pointer" onclick="navigate('home')">
       <div class="w-8 h-8 rounded-lg gradient-brand flex items-center justify-center text-white font-black text-sm">F</div>
-      <span class="font-[&#39;Poppins&#39;] font-bold text-lg" style="color:var(--text-primary)">Food<span class="gradient-text">Rush</span></span>
+      <span class="font-['Poppins'] font-bold text-lg" style="color:var(--text-primary)">Food<span class="gradient-text">Rush</span></span>
     </div>
 
     <!-- Desktop Nav Links -->
     <div class="hidden md:flex items-center gap-1">
-      <span class="nav-link active" onclick="navigate(&#39;home&#39;)" data-page="home">Home</span>
-      <span class="nav-link" onclick="navigate(&#39;menu&#39;)" data-page="menu">Menu</span>
-      <span class="nav-link" onclick="navigate(&#39;tracking&#39;)" data-page="tracking">Track Order</span>
-      <span class="nav-link" onclick="navigate(&#39;rewards&#39;)" data-page="rewards">Rewards</span>
-      <span class="nav-link" onclick="navigate(&#39;profile&#39;)" data-page="profile">Profile</span>
+      <span class="nav-link active" onclick="navigate('home')" data-page="home">Home</span>
+      <span class="nav-link" onclick="navigate('menu')" data-page="menu">Menu</span>
+      <span class="nav-link" onclick="navigate('tracking')" data-page="tracking">Track Order</span>
+      <span class="nav-link" onclick="navigate('rewards')" data-page="rewards">Rewards</span>
+      <span class="nav-link" onclick="navigate('profile')" data-page="profile">Profile</span>
     </div>
 
     <!-- Nav Actions -->
@@ -1082,11 +1082,11 @@
         <button class="btn-ghost sm:hidden" onclick="showAuthModal()"><i class="fa-solid fa-user"></i></button>
       </div>
       <div id="user-menu" style="display:none" class="flex items-center gap-2">
-        <div id="user-avatar" class="w-9 h-9 rounded-full gradient-brand flex items-center justify-center text-white font-bold text-sm cursor-pointer" onclick="navigate(&#39;profile&#39;)"></div>
+        <div id="user-avatar" class="w-9 h-9 rounded-full gradient-brand flex items-center justify-center text-white font-bold text-sm cursor-pointer" onclick="navigate('profile')"></div>
         <button class="btn-ghost hidden sm:flex text-xs" onclick="logout()">Logout</button>
       </div>
       <!-- Admin -->
-      <button id="admin-btn" style="display:none" class="btn-ghost text-xs" onclick="navigate(&#39;admin&#39;)">Admin</button>
+      <button id="admin-btn" style="display:none" class="btn-ghost text-xs" onclick="navigate('admin')">Admin</button>
     </div>
   </div>
 </nav>
@@ -1113,17 +1113,17 @@
           <!-- Left -->
           <div>
             <span class="floating-chip mb-6 inline-flex"><i class="fa-solid fa-fire-flame-curved"></i> 500+ restaurants near you</span>
-            <h1 class="font-[&#39;Poppins&#39;] font-black text-5xl sm:text-6xl leading-tight mb-6" style="color:var(--text-primary)">
+            <h1 class="font-['Poppins'] font-black text-5xl sm:text-6xl leading-tight mb-6" style="color:var(--text-primary)">
               Order Food<br/><span class="gradient-text">Fast &amp; Fresh</span><br/>Delivered Hot
             </h1>
             <p class="text-lg mb-8 leading-relaxed" style="color:var(--text-secondary)">
               Discover the best restaurants in your city. Real-time tracking, lightning-fast delivery, and exclusive deals — all in one place.
             </p>
             <div class="flex flex-wrap gap-3 mb-10">
-              <button class="btn-accent text-base px-8 py-3" onclick="navigate(&#39;menu&#39;)">
+              <button class="btn-accent text-base px-8 py-3" onclick="navigate('menu')">
                 <i class="fa-solid fa-utensils mr-2"></i> Order Now
               </button>
-              <button class="btn-ghost text-base px-6 py-3" onclick="navigate(&#39;tracking&#39;)">
+              <button class="btn-ghost text-base px-6 py-3" onclick="navigate('tracking')">
                 <i class="fa-solid fa-map-pin mr-2"></i> Track Order
               </button>
             </div>
@@ -1159,7 +1159,7 @@
                   <span class="rating-stars">★★★★★</span>
                   <span class="text-xs" style="color:var(--text-muted)">4.9 (2.1k)</span>
                 </div>
-                <button class="add-btn" onclick="addToCartById(1); showToast(&#39;Added to cart!&#39;,&#39;success&#39;)">
+                <button class="add-btn" onclick="addToCartById(1); showToast('Added to cart!','success')">
                   <i class="fa-solid fa-plus"></i> Add
                 </button>
               </div>
@@ -1181,26 +1181,26 @@
             <h2 class="section-title">Browse Categories</h2>
             <p class="section-sub mt-1">What are you craving today?</p>
           </div>
-          <button class="btn-ghost text-sm" onclick="navigate(&#39;menu&#39;)">View All</button>
+          <button class="btn-ghost text-sm" onclick="navigate('menu')">View All</button>
         </div>
         <div class="grid grid-cols-3 sm:grid-cols-5 gap-4">
-          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat(&#39;pizza&#39;)">
+          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat('pizza')">
             <div class="text-3xl mb-3">🍕</div>
             <div class="font-semibold text-sm" style="color:var(--text-primary)">Pizza</div>
           </div>
-          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat(&#39;burgers&#39;)">
+          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat('burgers')">
             <div class="text-3xl mb-3">🍔</div>
             <div class="font-semibold text-sm" style="color:var(--text-primary)">Burgers</div>
           </div>
-          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat(&#39;sushi&#39;)">
+          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat('sushi')">
             <div class="text-3xl mb-3">🍣</div>
             <div class="font-semibold text-sm" style="color:var(--text-primary)">Sushi</div>
           </div>
-          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat(&#39;desserts&#39;)">
+          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat('desserts')">
             <div class="text-3xl mb-3">🍰</div>
             <div class="font-semibold text-sm" style="color:var(--text-primary)">Desserts</div>
           </div>
-          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat(&#39;drinks&#39;)">
+          <div class="glass-card p-6 text-center cursor-pointer" onclick="navigateToMenuCat('drinks')">
             <div class="text-3xl mb-3">🥤</div>
             <div class="font-semibold text-sm" style="color:var(--text-primary)">Drinks</div>
           </div>
@@ -1242,9 +1242,9 @@
           <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 80% 50%,rgba(249,115,22,0.2),transparent)"></div>
           <div class="relative px-8 py-12 md:px-16 max-w-2xl">
             <span class="floating-chip mb-4 inline-flex"><i class="fa-solid fa-star"></i> Limited offer</span>
-            <h3 class="font-[&#39;Poppins&#39;] font-black text-3xl mb-4" style="color:var(--text-primary)">Get 30% off your first order!</h3>
+            <h3 class="font-['Poppins'] font-black text-3xl mb-4" style="color:var(--text-primary)">Get 30% off your first order!</h3>
             <p class="mb-6" style="color:var(--text-secondary)">Use code <strong style="color:var(--accent)">RUSH30</strong> at checkout. Valid for new users only.</p>
-            <button class="btn-accent px-8 py-3 text-base" onclick="navigate(&#39;menu&#39;)">Claim Offer <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            <button class="btn-accent px-8 py-3 text-base" onclick="navigate('menu')">Claim Offer <i class="fa-solid fa-arrow-right ml-2"></i></button>
           </div>
         </div>
       </div>
@@ -1289,31 +1289,31 @@
 
       <!-- Category Pills -->
       <div class="flex gap-2 overflow-x-auto pb-3 mb-8 scrollbar-hide" style="scrollbar-width:none">
-        <div class="category-pill active" data-cat="all" onclick="filterCategory(&#39;all&#39;,this)">
+        <div class="category-pill active" data-cat="all" onclick="filterCategory('all',this)">
           <span>🍽️</span> All
         </div>
-        <div class="category-pill" data-cat="pizza" onclick="filterCategory(&#39;pizza&#39;,this)">
+        <div class="category-pill" data-cat="pizza" onclick="filterCategory('pizza',this)">
           <span>🍕</span> Pizza
         </div>
-        <div class="category-pill" data-cat="burgers" onclick="filterCategory(&#39;burgers&#39;,this)">
+        <div class="category-pill" data-cat="burgers" onclick="filterCategory('burgers',this)">
           <span>🍔</span> Burgers
         </div>
-        <div class="category-pill" data-cat="sushi" onclick="filterCategory(&#39;sushi&#39;,this)">
+        <div class="category-pill" data-cat="sushi" onclick="filterCategory('sushi',this)">
           <span>🍣</span> Sushi
         </div>
-        <div class="category-pill" data-cat="pasta" onclick="filterCategory(&#39;pasta&#39;,this)">
+        <div class="category-pill" data-cat="pasta" onclick="filterCategory('pasta',this)">
           <span>🍝</span> Pasta
         </div>
-        <div class="category-pill" data-cat="salads" onclick="filterCategory(&#39;salads&#39;,this)">
+        <div class="category-pill" data-cat="salads" onclick="filterCategory('salads',this)">
           <span>🥗</span> Salads
         </div>
-        <div class="category-pill" data-cat="desserts" onclick="filterCategory(&#39;desserts&#39;,this)">
+        <div class="category-pill" data-cat="desserts" onclick="filterCategory('desserts',this)">
           <span>🍰</span> Desserts
         </div>
-        <div class="category-pill" data-cat="drinks" onclick="filterCategory(&#39;drinks&#39;,this)">
+        <div class="category-pill" data-cat="drinks" onclick="filterCategory('drinks',this)">
           <span>🥤</span> Drinks
         </div>
-        <div class="category-pill" data-cat="chicken" onclick="filterCategory(&#39;chicken&#39;,this)">
+        <div class="category-pill" data-cat="chicken" onclick="filterCategory('chicken',this)">
           <span>🍗</span> Chicken
         </div>
       </div>
@@ -1348,7 +1348,7 @@
   <div id="page-checkout" class="page">
     <div class="max-w-2xl mx-auto px-4 sm:px-6 py-8">
       <div class="flex items-center gap-3 mb-8">
-        <button class="btn-ghost text-sm" onclick="navigate(&#39;menu&#39;)"><i class="fa-solid fa-arrow-left mr-2"></i>Back</button>
+        <button class="btn-ghost text-sm" onclick="navigate('menu')"><i class="fa-solid fa-arrow-left mr-2"></i>Back</button>
         <h1 class="section-title">Checkout</h1>
       </div>
 
@@ -1427,7 +1427,7 @@
         <div class="glass-card p-6 mb-4">
           <h3 class="font-bold text-lg mb-4" style="color:var(--text-primary)"><i class="fa-solid fa-credit-card mr-2" style="color:var(--accent)"></i>Payment Method</h3>
           <div class="flex flex-col gap-3">
-            <div class="payment-card selected" onclick="selectPayment(&#39;cash&#39;,this)">
+            <div class="payment-card selected" onclick="selectPayment('cash',this)">
               <div class="payment-radio"><span></span></div>
               <div class="text-2xl">💵</div>
               <div>
@@ -1435,7 +1435,7 @@
                 <div class="text-xs" style="color:var(--text-muted)">Pay when your order arrives</div>
               </div>
             </div>
-            <div class="payment-card" onclick="selectPayment(&#39;card&#39;,this)">
+            <div class="payment-card" onclick="selectPayment('card',this)">
               <div class="payment-radio"><span></span></div>
               <div class="text-2xl">💳</div>
               <div>
@@ -1443,7 +1443,7 @@
                 <div class="text-xs" style="color:var(--text-muted)">Visa, Mastercard, Amex</div>
               </div>
             </div>
-            <div class="payment-card" onclick="selectPayment(&#39;wallet&#39;,this)">
+            <div class="payment-card" onclick="selectPayment('wallet',this)">
               <div class="payment-radio"><span></span></div>
               <div class="text-2xl">📱</div>
               <div>
@@ -1517,7 +1517,7 @@
         <div style="font-size:4rem;margin-bottom:1rem">📦</div>
         <h3 class="font-bold text-xl mb-2" style="color:var(--text-primary)">No Active Order</h3>
         <p class="mb-4" style="color:var(--text-muted)">Place an order first to track it here</p>
-        <button class="btn-accent px-8 py-3" onclick="navigate(&#39;menu&#39;)">Order Now</button>
+        <button class="btn-accent px-8 py-3" onclick="navigate('menu')">Order Now</button>
       </div>
 
       <!-- Active order tracking -->
@@ -1665,11 +1665,11 @@
       </div>
 
       <!-- Badges -->
-      <h2 class="font-[&#39;Poppins&#39;] font-bold text-xl mb-4" style="color:var(--text-primary)">🏆 Badges</h2>
+      <h2 class="font-['Poppins'] font-bold text-xl mb-4" style="color:var(--text-primary)">🏆 Badges</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8" id="badges-grid"></div>
 
       <!-- Coupons -->
-      <h2 class="font-[&#39;Poppins&#39;] font-bold text-xl mb-4" style="color:var(--text-primary)">🎫 Your Coupons</h2>
+      <h2 class="font-['Poppins'] font-bold text-xl mb-4" style="color:var(--text-primary)">🎫 Your Coupons</h2>
       <div class="grid sm:grid-cols-2 gap-4" id="coupons-grid"></div>
     </div>
   </div><!-- /page-rewards -->
@@ -1729,9 +1729,10 @@
 
       <!-- Admin Tabs -->
       <div class="tabs mb-8">
-        <button class="tab-btn active" onclick="adminTab(&#39;dashboard&#39;,this)">📊 Dashboard</button>
-        <button class="tab-btn" onclick="adminTab(&#39;items&#39;,this)">🍽️ Menu Items</button>
-        <button class="tab-btn" onclick="adminTab(&#39;orders&#39;,this)">📦 Orders</button>
+        <button class="tab-btn active" onclick="adminTab('dashboard',this)">📊 Dashboard</button>
+        <button class="tab-btn" onclick="adminTab('items',this)">🍽️ Menu Items</button>
+        <button class="tab-btn" onclick="adminTab('orders',this)">📦 Orders</button>
+        <button class="tab-btn" onclick="adminTab('promotions',this)">🎫 Promotions</button>
       </div>
 
       <!-- Dashboard Panel -->
@@ -1814,6 +1815,45 @@
           </div>
           <div id="no-orders-msg" class="text-center py-12" style="color:var(--text-muted)">No orders yet</div>
         </div>
+      </div><!-- /admin-orders -->
+
+      <!-- Promotions Panel -->
+      <div id="admin-promotions" class="admin-tab-panel" style="display:none">
+        <!-- Add/Edit form -->
+        <div class="glass-card p-6 mb-6">
+          <h3 class="font-bold mb-4" style="color:var(--text-primary)" id="promo-form-title">🎫 Create New Promo Code</h3>
+          <div class="admin-form-grid">
+            <div class="form-group"><label class="form-label">Promo Code</label><input type="text" id="ap-code" class="form-input" placeholder="SAVE50"/></div>
+            <div class="form-group"><label class="form-label">Type</label>
+              <select id="ap-type" class="form-input sort-select w-full">
+                <option value="percent">Percentage (%)</option>
+                <option value="fixed">Fixed Amount ($)</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Discount Value</label><input type="number" id="ap-value" class="form-input" placeholder="15" step="0.01"/></div>
+            <div class="form-group"><label class="form-label">Usage Limit</label><input type="number" id="ap-limit" class="form-input" placeholder="Optional"/></div>
+            <div class="form-group"><label class="form-label">Expiry Date</label><input type="date" id="ap-expiry" class="form-input"/></div>
+            <div class="form-group"><label class="form-label">Description</label><input type="text" id="ap-desc" class="form-input" placeholder="15% off any order"/></div>
+          </div>
+          <div class="flex gap-3">
+            <button class="btn-accent px-6 py-2" onclick="adminSavePromo()">Save Promo</button>
+            <button class="btn-ghost px-6 py-2" onclick="adminCancelPromoEdit()">Cancel</button>
+          </div>
+          <input type="hidden" id="ap-editing-code" value=""/>
+        </div>
+        <!-- Promo Table -->
+        <div class="glass-card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Code</th><th>Discount</th><th>Usage</th><th>Expiry</th><th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-promotions-table"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div><!-- /page-admin -->
@@ -1822,11 +1862,11 @@
 
 <!-- ═══════════ MOBILE BOTTOM NAV ═══════════ -->
 <nav id="mobile-nav">
-  <button class="mob-nav-btn active" onclick="navigate(&#39;home&#39;)" data-mob="home"><i class="fa-solid fa-house"></i>Home</button>
-  <button class="mob-nav-btn" onclick="navigate(&#39;menu&#39;)" data-mob="menu"><i class="fa-solid fa-utensils"></i>Menu</button>
+  <button class="mob-nav-btn active" onclick="navigate('home')" data-mob="home"><i class="fa-solid fa-house"></i>Home</button>
+  <button class="mob-nav-btn" onclick="navigate('menu')" data-mob="menu"><i class="fa-solid fa-utensils"></i>Menu</button>
   <button class="mob-nav-btn" onclick="toggleCart()" style="position:relative"><i class="fa-solid fa-bag-shopping"></i><span id="mob-cart-badge" style="display:none;position:absolute;top:2px;right:16px" class="cart-badge">0</span>Cart</button>
-  <button class="mob-nav-btn" onclick="navigate(&#39;rewards&#39;)" data-mob="rewards"><i class="fa-solid fa-trophy"></i>Rewards</button>
-  <button class="mob-nav-btn" onclick="navigate(&#39;profile&#39;)" data-mob="profile"><i class="fa-solid fa-user"></i>Profile</button>
+  <button class="mob-nav-btn" onclick="navigate('rewards')" data-mob="rewards"><i class="fa-solid fa-trophy"></i>Rewards</button>
+  <button class="mob-nav-btn" onclick="navigate('profile')" data-mob="profile"><i class="fa-solid fa-user"></i>Profile</button>
 </nav>
 
 <!-- ═══════════ CART OVERLAY ═══════════ -->
@@ -1837,7 +1877,7 @@
   <!-- Header -->
   <div class="flex items-center justify-between p-5" style="border-bottom:1px solid var(--border-color)">
     <div>
-      <h2 class="font-[&#39;Poppins&#39;] font-bold text-lg" style="color:var(--text-primary)">Your Cart</h2>
+      <h2 class="font-['Poppins'] font-bold text-lg" style="color:var(--text-primary)">Your Cart</h2>
       <div class="text-xs" id="cart-item-count-text" style="color:var(--text-muted)">0 items</div>
     </div>
     <div class="flex gap-2">
@@ -1881,13 +1921,13 @@
     <button class="modal-close" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
     <div class="flex items-center gap-2 mb-6">
       <div class="w-8 h-8 rounded-lg gradient-brand flex items-center justify-center text-white font-black text-sm">F</div>
-      <span class="font-[&#39;Poppins&#39;] font-bold text-lg" style="color:var(--text-primary)">FoodRush</span>
+      <span class="font-['Poppins'] font-bold text-lg" style="color:var(--text-primary)">FoodRush</span>
     </div>
 
     <!-- Tabs -->
     <div class="tabs">
-      <button class="tab-btn active" id="tab-login" onclick="switchAuthTab(&#39;login&#39;)">Sign In</button>
-      <button class="tab-btn" id="tab-register" onclick="switchAuthTab(&#39;register&#39;)">Register</button>
+      <button class="tab-btn active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
+      <button class="tab-btn" id="tab-register" onclick="switchAuthTab('register')">Register</button>
     </div>
 
     <!-- Login Form -->
@@ -2078,14 +2118,7 @@ let STATE = {
   theme: 'dark',
   reviews: {}, // { itemId: [ {rating, comment, user, date} ] }
   currentRatingInput: 0,
-};
-
-// Coupons database
-const COUPONS = {
-  'RUSH30': { discount: 30, type: 'percent', desc: '30% off your order' },
-  'FIRST10': { discount: 10, type: 'fixed', desc: '$10 off first order' },
-  'SAVE15': { discount: 15, type: 'percent', desc: '15% off any order' },
-  'FREESHIP': { discount: 2.99, type: 'fixed', desc: 'Free delivery' },
+  coupons: {},
 };
 
 // Badges
@@ -2121,6 +2154,15 @@ function loadFromStorage() {
   STATE.reviews   = JSON.parse(localStorage.getItem('fr_reviews') || '{}');
   STATE.foodData  = JSON.parse(localStorage.getItem('fr_foods') || 'null') || FOOD_DATA_DEFAULT;
   STATE.theme     = localStorage.getItem('fr_theme') || 'dark';
+
+  const defaultCoupons = {
+    'RUSH30': { discount: 30, type: 'percent', desc: '30% off your order', expiry: null, limit: null, used: 0 },
+    'FIRST10': { discount: 10, type: 'fixed', desc: '$10 off first order', expiry: null, limit: null, used: 0 },
+    'SAVE15': { discount: 15, type: 'percent', desc: '15% off any order', expiry: null, limit: null, used: 0 },
+    'FREESHIP': { discount: 2.99, type: 'fixed', desc: 'Free delivery', expiry: null, limit: null, used: 0 },
+  };
+  STATE.coupons   = JSON.parse(localStorage.getItem('fr_coupons') || 'null') || defaultCoupons;
+
   const userJson  = localStorage.getItem('fr_current_user');
   if (userJson) {
     STATE.currentUser = JSON.parse(userJson);
@@ -2140,6 +2182,7 @@ function saveWishlist(){ localStorage.setItem('fr_wishlist', JSON.stringify(STAT
 function saveUsers()   { localStorage.setItem('fr_users', JSON.stringify(STATE.users)); }
 function saveOrders()  { localStorage.setItem('fr_orders', JSON.stringify(STATE.orders)); }
 function saveReviews() { localStorage.setItem('fr_reviews', JSON.stringify(STATE.reviews)); }
+function saveCoupons() { localStorage.setItem('fr_coupons', JSON.stringify(STATE.coupons)); }
 
 /* ═══════════════════════════════════════════════
    4. ONLINE / OFFLINE DETECTION
@@ -2446,7 +2489,7 @@ function renderCartTotals() {
   const deliveryFee = 2.99;
   let discount = 0;
   if (STATE.appliedCoupon) {
-    const c = COUPONS[STATE.appliedCoupon];
+    const c = STATE.coupons[STATE.appliedCoupon];
     if (c.type === 'percent') discount = subtotal * c.discount / 100;
     else discount = Math.min(c.discount, subtotal);
   }
@@ -2786,16 +2829,31 @@ function applyCoupon() {
   const code = document.getElementById('coupon-input')?.value.trim().toUpperCase();
   const msgEl = document.getElementById('coupon-msg');
   if (!code) return;
-  if (COUPONS[code]) {
+  const promo = STATE.coupons[code];
+  if (promo) {
+    // Check expiry
+    if (promo.expiry && new Date() > new Date(promo.expiry + 'T23:59:59')) {
+      msgEl.textContent = '❌ This promo code has expired';
+      msgEl.style.color = 'var(--error)';
+      msgEl.classList.remove('hidden');
+      return;
+    }
+    // Check usage limit
+    if (promo.limit !== null && promo.used >= promo.limit) {
+      msgEl.textContent = '❌ This promo code has reached its usage limit';
+      msgEl.style.color = 'var(--error)';
+      msgEl.classList.remove('hidden');
+      return;
+    }
+
     STATE.appliedCoupon = code;
-    const c = COUPONS[code];
-    msgEl.textContent = `✅ ${c.desc} applied!`;
+    msgEl.textContent = `✅ ${promo.desc} applied!`;
     msgEl.style.color = 'var(--success)';
     msgEl.classList.remove('hidden');
     renderCartTotals();
     showToast(`Coupon ${code} applied!`, 'success');
   } else {
-    msgEl.textContent = '❌ Invalid or expired coupon code';
+    msgEl.textContent = '❌ Invalid promo code';
     msgEl.style.color = 'var(--error)';
     msgEl.classList.remove('hidden');
   }
@@ -2825,6 +2883,12 @@ function placeOrder() {
   };
   STATE.orders.unshift(order);
   saveOrders();
+
+  // Update coupon usage
+  if (STATE.appliedCoupon && STATE.coupons[STATE.appliedCoupon]) {
+    STATE.coupons[STATE.appliedCoupon].used = (STATE.coupons[STATE.appliedCoupon].used || 0) + 1;
+    saveCoupons();
+  }
 
   // Give points
   if (STATE.currentUser) {
@@ -3000,7 +3064,7 @@ function renderRewards() {
   // Coupons
   const couponsGrid = document.getElementById('coupons-grid');
   if (couponsGrid) {
-    const availCoupons = Object.entries(COUPONS).filter(([code]) => {
+    const availCoupons = Object.entries(STATE.coupons).filter(([code]) => {
       if (code === 'RUSH30') return orders === 0;
       if (code === 'FIRST10') return orders >= 1;
       return pts >= 100;
@@ -3323,6 +3387,7 @@ function adminTab(tab, el) {
   if (tab === 'dashboard') renderAdminDashboard();
   if (tab === 'items') renderAdminItems();
   if (tab === 'orders') renderAdminOrders();
+  if (tab === 'promotions') renderAdminPromotions();
 }
 
 function renderAdmin() {
@@ -3405,6 +3470,91 @@ function renderAdminOrders() {
       <td>${new Date(o.createdAt).toLocaleDateString()}</td>
     </tr>`;
   }).join('');
+}
+
+function renderAdminPromotions() {
+  const tbody = document.getElementById('admin-promotions-table');
+  if (!tbody) return;
+  tbody.innerHTML = Object.entries(STATE.coupons).map(([code, p]) => `
+    <tr>
+      <td><span class="font-bold">${code}</span></td>
+      <td>${p.type === 'percent' ? p.discount + '%' : '$' + p.discount.toFixed(2)}</td>
+      <td>${p.used || 0} / ${p.limit === null ? '∞' : p.limit}</td>
+      <td>${p.expiry ? new Date(p.expiry).toLocaleDateString() : 'Never'}</td>
+      <td>
+        <div style="display:flex;gap:8px">
+          <button class="reorder-btn" onclick="adminEditPromo('${code}')"><i class="fa-solid fa-pen mr-1"></i>Edit</button>
+          <button onclick="adminDeletePromo('${code}')" style="background:rgba(239,68,68,0.1);color:var(--error);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:0.3rem 0.75rem;font-size:0.8rem;cursor:pointer;font-weight:600">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function adminSavePromo() {
+  const code = document.getElementById('ap-code').value.trim().toUpperCase();
+  const type = document.getElementById('ap-type').value;
+  const value = parseFloat(document.getElementById('ap-value').value);
+  const limit = document.getElementById('ap-limit').value ? parseInt(document.getElementById('ap-limit').value) : null;
+  const expiry = document.getElementById('ap-expiry').value || null;
+  const desc = document.getElementById('ap-desc').value.trim();
+  const editOldCode = document.getElementById('ap-editing-code').value;
+
+  if (!code || isNaN(value)) { showToast('Code and Discount Value are required', 'error'); return; }
+
+  let usage = 0;
+  if (editOldCode) {
+    usage = STATE.coupons[editOldCode]?.used || 0;
+    if (editOldCode !== code) delete STATE.coupons[editOldCode];
+  } else {
+    usage = STATE.coupons[code]?.used || 0;
+  }
+
+  STATE.coupons[code] = {
+    discount: value,
+    type: type,
+    desc: desc || (type === 'percent' ? `${value}% off` : `$${value} off`),
+    expiry: expiry,
+    limit: limit,
+    used: usage
+  };
+
+  saveCoupons();
+  renderAdminPromotions();
+  showToast(`Promo code ${code} saved!`, 'success');
+  adminCancelPromoEdit();
+}
+
+function adminDeletePromo(code) {
+  if (!confirm(`Delete promo code ${code}?`)) return;
+  delete STATE.coupons[code];
+  saveCoupons();
+  renderAdminPromotions();
+  showToast('Promo code deleted', 'info');
+}
+
+function adminEditPromo(code) {
+  const p = STATE.coupons[code];
+  if (!p) return;
+  document.getElementById('ap-code').value = code;
+  document.getElementById('ap-type').value = p.type;
+  document.getElementById('ap-value').value = p.discount;
+  document.getElementById('ap-limit').value = p.limit || '';
+  document.getElementById('ap-expiry').value = p.expiry || '';
+  document.getElementById('ap-desc').value = p.desc || '';
+  document.getElementById('ap-editing-code').value = code;
+  document.getElementById('promo-form-title').textContent = '🎫 Edit Promo Code';
+  window.scrollTo(0, 0);
+}
+
+function adminCancelPromoEdit() {
+  ['ap-code','ap-value','ap-limit','ap-expiry','ap-desc','ap-editing-code'].forEach(id => { 
+    const el = document.getElementById(id); 
+    if (el) el.value = ''; 
+  });
+  document.getElementById('promo-form-title').textContent = '🎫 Create New Promo Code';
 }
 
 function adminEditItem(id) {
