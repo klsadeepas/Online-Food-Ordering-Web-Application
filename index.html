@@ -1731,6 +1731,23 @@
       <!-- Order History -->
       <div>
         <h3 class="font-bold text-lg mb-4" style="color:var(--text-primary)">📋 Order History</h3>
+
+        <!-- Filter Controls -->
+        <div class="glass-card p-4 mb-4">
+          <div class="flex flex-col md:flex-row gap-4">
+            <div class="tabs flex-1 mb-0">
+              <button class="tab-btn active" id="oh-filter-all" onclick="filterOrderHistory('all')">All</button>
+              <button class="tab-btn" id="oh-filter-delivered" onclick="filterOrderHistory('delivered')">Delivered</button>
+              <button class="tab-btn" id="oh-filter-pending" onclick="filterOrderHistory('placed')">Pending</button>
+            </div>
+            <div class="flex gap-2 items-center">
+              <input type="date" id="oh-date-from" class="form-input text-xs" onchange="renderProfile()" title="From date"/>
+              <span class="text-xs" style="color:var(--text-muted)">to</span>
+              <input type="date" id="oh-date-to" class="form-input text-xs" onchange="renderProfile()" title="To date"/>
+            </div>
+          </div>
+        </div>
+
         <div id="order-history" style="color:var(--text-muted)">
           <div class="text-center py-8">No orders yet</div>
         </div>
@@ -2145,6 +2162,7 @@ let STATE = {
   currentRatingInput: 0,
   coupons: {},
   currentRestaurant: null,
+  orderHistoryFilter: 'all',
 };
 
 // Mock Restaurant Database
@@ -3246,9 +3264,28 @@ function renderProfile() {
   // Order history
   const ohEl = document.getElementById('order-history');
   if (ohEl) {
-    const userOrders = STATE.orders.filter(o => o.userId === (user?.id || 'guest')).slice(0, 10);
+    const statusFilter = STATE.orderHistoryFilter || 'all';
+    const dateFrom = document.getElementById('oh-date-from')?.value;
+    const dateTo = document.getElementById('oh-date-to')?.value;
+
+    let userOrders = STATE.orders.filter(o => o.userId === (user?.id || 'guest'));
+
+    // Filter by Status
+    if (statusFilter !== 'all') {
+      userOrders = userOrders.filter(o => o.status === statusFilter);
+    }
+    // Filter by Date Range
+    if (dateFrom) {
+      const fromTime = new Date(dateFrom).getTime();
+      userOrders = userOrders.filter(o => o.createdAt >= fromTime);
+    }
+    if (dateTo) {
+      const toTime = new Date(dateTo + 'T23:59:59').getTime();
+      userOrders = userOrders.filter(o => o.createdAt <= toTime);
+    }
+
     ohEl.innerHTML = userOrders.length === 0
-      ? `<div class="text-center py-8" style="color:var(--text-muted)">No orders yet. Start ordering!</div>`
+      ? `<div class="text-center py-8" style="color:var(--text-muted)">No orders found with current filters.</div>`
       : userOrders.map(o => `
         <div class="order-history-card">
           <div class="flex justify-between items-center mb-2">
@@ -3259,13 +3296,53 @@ function renderProfile() {
             <span class="font-black" style="color:var(--accent)">$${o.total.toFixed(2)}</span>
           </div>
           <div class="text-xs mb-3" style="color:var(--text-muted)">${new Date(o.createdAt).toLocaleString()} · ${o.items.length} item(s)</div>
+          
+          <!-- Expandable Details -->
+          <div id="oh-details-${o.id}" style="display:none" class="mb-4 p-4 rounded-xl glass">
+            <div class="text-[10px] font-bold uppercase mb-2" style="color:var(--text-muted);letter-spacing:0.05em">Order Items</div>
+            ${o.items.map(i => `
+              <div class="flex justify-between items-center text-xs mb-2">
+                <span style="color:var(--text-secondary)">${i.qty}× ${i.name}</span>
+                <span class="font-semibold" style="color:var(--text-primary)">$${(i.price * i.qty).toFixed(2)}</span>
+              </div>
+            `).join('')}
+            <div class="divider my-2"></div>
+            <div class="flex justify-between text-xs mb-1">
+              <span style="color:var(--text-muted)">Subtotal</span>
+              <span style="color:var(--text-primary)">$${o.subtotal.toFixed(2)}</span>
+            </div>
+            ${o.discount > 0 ? `
+            <div class="flex justify-between text-xs">
+              <span style="color:var(--success)">Discount</span>
+              <span style="color:var(--success)">-$${o.discount.toFixed(2)}</span>
+            </div>` : ''}
+          </div>
+
           <div class="flex gap-2">
-            <button class="reorder-btn" onclick="reorder(${JSON.stringify(o.id)})"><i class="fa-solid fa-rotate-right mr-1"></i>Reorder</button>
-            <button class="reorder-btn" onclick="viewOrderTracking()" style="background:transparent;color:var(--text-muted)">Track</button>
+            <button class="reorder-btn" onclick="toggleOrderHistoryDetails('${o.id}', this)"><i class="fa-solid fa-chevron-down mr-1"></i>Details</button>
+            <button class="reorder-btn" onclick="reorder('${o.id}')"><i class="fa-solid fa-rotate-right mr-1"></i>Reorder</button>
+            ${o.status !== 'delivered' ? `<button class="reorder-btn" onclick="viewOrderTracking()" style="background:transparent;color:var(--text-muted)">Track</button>` : ''}
           </div>
         </div>
       `).join('');
   }
+}
+
+function filterOrderHistory(status) {
+  STATE.orderHistoryFilter = status;
+  document.getElementById('oh-filter-all').classList.toggle('active', status === 'all');
+  document.getElementById('oh-filter-delivered').classList.toggle('active', status === 'delivered');
+  document.getElementById('oh-filter-pending').classList.toggle('active', status === 'placed');
+  renderProfile();
+}
+
+function toggleOrderHistoryDetails(id, btn) {
+  const el = document.getElementById(`oh-details-${id}`);
+  if (!el) return;
+  const isHidden = el.style.display === 'none';
+  el.style.display = isHidden ? 'block' : 'none';
+  const icon = btn.querySelector('i');
+  if (icon) icon.className = isHidden ? 'fa-solid fa-chevron-up mr-1' : 'fa-solid fa-chevron-down mr-1';
 }
 
 function reorder(orderId) {
