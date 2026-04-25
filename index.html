@@ -1108,7 +1108,7 @@
       <div class="theme-toggle" onclick="toggleTheme()" title="Toggle theme"></div>
       <!-- Cart -->
       <button onclick="toggleCart()" class="relative w-10 h-10 flex items-center justify-center rounded-xl" style="background:var(--bg-card);border:1px solid var(--border-color)" aria-label="Cart">
-        <i class="fa-solid fa-bag-shopping" style="color:var(--text-secondary)"></i>
+        <i class="fa-solid fa-bag-shopping" style="color:var(--accent)"></i>
         <span id="cart-badge" class="cart-badge" style="display:none">0</span>
       </button>
       <!-- Auth -->
@@ -1187,7 +1187,7 @@
                   <div class="font-bold" style="color:var(--text-primary)">Margherita Special</div>
                   <div class="text-sm" style="color:var(--text-muted)">Pizza Palace</div>
                 </div>
-                <div class="price-tag">$14.99</div>
+                <div class="price-tag">Rs. 1,499</div>
               </div>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -1736,7 +1736,7 @@
             </div>
             <div style="width:1px;background:var(--border-color)"></div>
             <div class="text-center">
-              <div class="font-black text-2xl gradient-text" id="total-spent-display">$0</div>
+              <div class="font-black text-2xl gradient-text" id="total-spent-display">Rs. 0</div>
               <div class="text-xs" style="color:var(--text-muted)">Spent</div>
             </div>
             <div style="width:1px;background:var(--border-color)"></div>
@@ -1937,7 +1937,7 @@
             <div class="text-xs mt-2" style="color:var(--success)">↑ All time</div>
           </div>
           <div class="admin-stat" style="border-left:none">
-            <div class="text-3xl font-black gradient-text mb-1" id="admin-revenue">$0</div>
+            <div class="text-3xl font-black gradient-text mb-1" id="admin-revenue">Rs. 0</div>
             <div class="text-sm" style="color:var(--text-muted)">Revenue</div>
             <div class="text-xs mt-2" style="color:var(--success)">↑ All time</div>
           </div>
@@ -2092,7 +2092,7 @@
   <button class="mob-nav-btn active" onclick="navigate('home')" data-mob="home"><i class="fa-solid fa-house"></i>Home</button>
   <button class="mob-nav-btn" onclick="navigate('restaurants')" data-mob="restaurants"><i class="fa-solid fa-shop"></i>Shop</button>
   <button class="mob-nav-btn" onclick="navigate('menu')" data-mob="menu"><i class="fa-solid fa-utensils"></i>Menu</button>
-  <button class="mob-nav-btn" onclick="toggleCart()" style="position:relative"><i class="fa-solid fa-bag-shopping"></i><span id="mob-cart-badge" style="display:none;position:absolute;top:2px;right:16px" class="cart-badge">0</span>Cart</button>
+  <button class="mob-nav-btn" onclick="toggleCart()" style="position:relative"><i class="fa-solid fa-bag-shopping" style="color:var(--accent)"></i><span id="mob-cart-badge" style="display:none;position:absolute;top:2px;right:16px" class="cart-badge">0</span>Cart</button>
   <button class="mob-nav-btn" onclick="navigate('rewards')" data-mob="rewards"><i class="fa-solid fa-trophy"></i>Rewards</button>
   <button class="mob-nav-btn" onclick="navigate('profile')" data-mob="profile"><i class="fa-solid fa-user"></i>Profile</button>
   <button class="mob-nav-btn" onclick="navigate('about')" data-mob="about"><i class="fa-solid fa-circle-info"></i>About</button>
@@ -2127,16 +2127,16 @@
   <!-- Cart Footer -->
   <div id="cart-footer" style="border-top:1px solid var(--border-color);padding:1.25rem;display:none">
     <div class="flex justify-between mb-2 text-sm" style="color:var(--text-secondary)">
-      <span>Subtotal</span><span id="cart-subtotal">$0.00</span>
+      <span>Subtotal</span><span id="cart-subtotal">Rs. 0</span>
     </div>
     <div class="flex justify-between mb-2 text-sm" style="color:var(--text-secondary)">
-      <span>Delivery fee</span><span id="cart-delivery-fee">$2.99</span>
+      <span>Delivery fee</span><span id="cart-delivery-fee">Rs. 250</span>
     </div>
     <div class="flex justify-between mb-2 text-sm" id="cart-discount-row" style="display:none!important">
-      <span style="color:var(--success)">Discount</span><span style="color:var(--success)" id="cart-discount-val">-$0.00</span>
+      <span style="color:var(--success)">Discount</span><span style="color:var(--success)" id="cart-discount-val">-Rs. 0</span>
     </div>
     <div class="flex justify-between font-black text-lg mb-4" style="color:var(--text-primary)">
-      <span>Total</span><span id="cart-total" class="gradient-text">$0.00</span>
+      <span>Total</span><span id="cart-total" class="gradient-text">Rs. 0</span>
     </div>
     <button class="btn-accent w-full py-3 text-base" onclick="goToCheckout()">
       Checkout <i class="fa-solid fa-arrow-right ml-2"></i>
@@ -2280,7 +2280,7 @@
     
     <div class="form-group">
       <label class="form-label">Delivery Location</label>
-      <input type="text" id="edit-location" class="form-input" placeholder="e.g. 123 Main St, New York"/>
+      <input type="text" id="edit-location" class="form-input" placeholder="e.g. 45 Galle Road, Colombo 03"/>
     </div>
     <div class="form-group">
       <label class="form-label">Primary Phone</label>
@@ -2314,23 +2314,40 @@
 ══════════════════════════════════════════════════════════ -->
 <script>
 /* ═══════════════════════════════════════════════
-   1. FOOD DATA — 24 ITEMS
+   1. FOOD DATA — 34 ITEMS
 ═══════════════════════════════════════════════ */
 const FOOD_DATA_DEFAULT = [
-  { id:1,  name:"Margherita Supreme",   category:"pizza",   price:14.99, oldPrice:18.99, rating:4.9, reviews:2140, img:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80", desc:"Classic tomato sauce, fresh mozzarella, basil leaves on crispy thin crust.", trending:true, featured:true, badge:"Best Seller", restaurantId: 1 },
-  { id:2,  name:"BBQ Chicken Pizza",    category:"pizza",   price:16.99, oldPrice:null,  rating:4.7, reviews:1580, img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80", desc:"Smoky BBQ sauce with grilled chicken, caramelized onions, and cheddar.", trending:false, featured:true, badge:null, restaurantId: 1 },
-  { id:3,  name:"Pepperoni Feast",      category:"pizza",   price:15.99, oldPrice:null,  rating:4.8, reviews:3201, img:"https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&auto=format&fit=crop&q=80", desc:"Loaded with double pepperoni, Italian sausage, and extra cheese.", trending:true, featured:false, badge:"Hot", restaurantId: 1 },
-  { id:4,  name:"Classic Smash Burger", category:"burgers", price:12.99, oldPrice:null,  rating:4.8, reviews:4200, img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80", desc:"Double smash patties, special sauce, pickles, American cheese.", trending:true, featured:true, badge:"Fan Fave", restaurantId: 2 },
-  { id:5,  name:"Truffle Mushroom Burger",category:"burgers",price:15.99,oldPrice:19.99, rating:4.6, reviews:892,  img:"https://images.unsplash.com/photo-1586816001966-79b736744398?w=600&auto=format&fit=crop&q=80", desc:"Wagyu beef, truffle aioli, sautéed wild mushrooms, aged gruyère.", trending:false, featured:false, badge:"Premium", restaurantId: 2 },
-  { id:6,  name:"Crispy Chicken Burger",category:"burgers", price:11.99, oldPrice:null,  rating:4.7, reviews:2100, img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&auto=format&fit=crop&q=80", desc:"Southern fried chicken, coleslaw, pickles, spicy sriracha mayo.", trending:false, featured:false, badge:null, restaurantId: 2 },
-  { id:7,  name:"Dragon Roll",          category:"sushi",   price:18.99, oldPrice:null,  rating:4.9, reviews:1640, img:"https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&auto=format&fit=crop&q=80", desc:"Shrimp tempura inside, avocado on top, eel sauce drizzle.", trending:true, featured:true, badge:"Chef's Pick", restaurantId: 3 },
-  { id:8,  name:"Salmon Sashimi Set",   category:"sushi",   price:24.99, oldPrice:29.99, rating:4.9, reviews:980,  img:"https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop&q=80", desc:"12 pieces premium Atlantic salmon sashimi with wasabi and ginger.", trending:false, featured:false, badge:"Premium", restaurantId: 3 },
-  { id:9,  name:"Spicy Tuna Roll",      category:"sushi",   price:14.99, oldPrice:null,  rating:4.7, reviews:1230, img:"https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&auto=format&fit=crop&q=80", desc:"Fresh tuna, spicy mayo, cucumber, crunchy tempura flakes.", trending:false, featured:false, badge:null, restaurantId: 3 },
-  { id:10, name:"Carbonara Pasta",      category:"pasta",   price:13.99, oldPrice:null,  rating:4.6, reviews:1800, img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&auto=format&fit=crop&q=80", desc:"Authentic Roman carbonara with pecorino, guanciale, egg yolk.", trending:false, featured:true, badge:null, restaurantId: 4 },
-  { id:11, name:"Pesto Linguine",       category:"pasta",   price:12.99, oldPrice:null,  rating:4.5, reviews:740,  img:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=600&auto=format&fit=crop&q=80", desc:"Homemade basil pesto with pine nuts, cherry tomatoes, parmesan.", trending:false, featured:false, badge:null, restaurantId: 4 },
-  { id:12, name:"Greek Salad",          category:"salads",  price:9.99,  oldPrice:null,  rating:4.4, reviews:560,  img:"https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80", desc:"Crisp cucumber, tomatoes, kalamata olives, feta, red onion, oregano.", trending:false, featured:false, badge:"Healthy", restaurantId: 8 },
-  { id:13, name:"Caesar Salad",         category:"salads",  price:10.99, oldPrice:null,  rating:4.5, reviews:890,  img:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop&q=80", desc:"Romaine, homemade Caesar dressing, croutons, parmesan shavings.", trending:false, featured:false, badge:null, restaurantId: 8 },
-  { id:14, name:"Chocolate Lava Cake",  category:"desserts",price:7.99,  oldPrice:null,  rating:4.9, reviews:3100, img:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&auto=format&fit=crop&q=80", desc:"Warm dark chocolate cake with molten center, vanilla ice cream.", trending:true, featured:true, badge:"🔥 Must Try", restaurantId: 9 },
+  { id:1,  name:"Margherita Supreme",   category:"pizza",   price:1499, oldPrice:1899, rating:4.9, reviews:2140, img:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80", desc:"Classic tomato sauce, fresh mozzarella, basil leaves on crispy thin crust.", trending:true, featured:true, badge:"Best Seller", restaurantId: 1 },
+  { id:2,  name:"BBQ Chicken Pizza",    category:"pizza",   price:1699, oldPrice:null,  rating:4.7, reviews:1580, img:"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80", desc:"Smoky BBQ sauce with grilled chicken, caramelized onions, and cheddar.", trending:false, featured:true, badge:null, restaurantId: 1 },
+  { id:3,  name:"Pepperoni Feast",      category:"pizza",   price:1599, oldPrice:null,  rating:4.8, reviews:3201, img:"https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&auto=format&fit=crop&q=80", desc:"Loaded with double pepperoni, Italian sausage, and extra cheese.", trending:true, featured:false, badge:"Hot", restaurantId: 1 },
+  { id:4,  name:"Classic Smash Burger", category:"burgers", price:1299, oldPrice:null,  rating:4.8, reviews:4200, img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80", desc:"Double smash patties, special sauce, pickles, American cheese.", trending:true, featured:true, badge:"Fan Fave", restaurantId: 2 },
+  { id:5,  name:"Truffle Mushroom Burger",category:"burgers",price:1599,oldPrice:1999, rating:4.6, reviews:892,  img:"https://images.unsplash.com/photo-1586816001966-79b736744398?w=600&auto=format&fit=crop&q=80", desc:"Wagyu beef, truffle aioli, sautéed wild mushrooms, aged gruyère.", trending:false, featured:false, badge:"Premium", restaurantId: 2 },
+  { id:6,  name:"Crispy Chicken Burger",category:"burgers", price:1199, oldPrice:null,  rating:4.7, reviews:2100, img:"https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&auto=format&fit=crop&q=80", desc:"Southern fried chicken, coleslaw, pickles, spicy sriracha mayo.", trending:false, featured:false, badge:null, restaurantId: 2 },
+  { id:7,  name:"Dragon Roll",          category:"sushi",   price:1899, oldPrice:null,  rating:4.9, reviews:1640, img:"https://images.unsplash.com/photo-1563612116625-3012372fccce?w=600&auto=format&fit=crop&q=80", desc:"Shrimp tempura inside, avocado on top, eel sauce drizzle.", trending:true, featured:true, badge:"Chef's Pick", restaurantId: 3 },
+  { id:8,  name:"Salmon Sashimi Set",   category:"sushi",   price:2499, oldPrice:2999, rating:4.9, reviews:980,  img:"https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&auto=format&fit=crop&q=80", desc:"12 pieces premium Atlantic salmon sashimi with wasabi and ginger.", trending:false, featured:false, badge:"Premium", restaurantId: 3 },
+  { id:9,  name:"Spicy Tuna Roll",      category:"sushi",   price:1499, oldPrice:null,  rating:4.7, reviews:1230, img:"https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&auto=format&fit=crop&q=80", desc:"Fresh tuna, spicy mayo, cucumber, crunchy tempura flakes.", trending:false, featured:false, badge:null, restaurantId: 3 },
+  { id:10, name:"Carbonara Pasta",      category:"pasta",   price:1399, oldPrice:null,  rating:4.6, reviews:1800, img:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&auto=format&fit=crop&q=80", desc:"Authentic Roman carbonara with pecorino, guanciale, egg yolk.", trending:false, featured:true, badge:null, restaurantId: 4 },
+  { id:11, name:"Pesto Linguine",       category:"pasta",   price:1299, oldPrice:null,  rating:4.5, reviews:740,  img:"https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=600&auto=format&fit=crop&q=80", desc:"Homemade basil pesto with pine nuts, cherry tomatoes, parmesan.", trending:false, featured:false, badge:null, restaurantId: 4 },
+  { id:12, name:"Greek Salad",          category:"salads",  price:999,  oldPrice:null,  rating:4.4, reviews:560,  img:"https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80", desc:"Crisp cucumber, tomatoes, kalamata olives, feta, red onion, oregano.", trending:false, featured:false, badge:"Healthy", restaurantId: 8 },
+  { id:13, name:"Caesar Salad",         category:"salads",  price:1099, oldPrice:null,  rating:4.5, reviews:890,  img:"https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop&q=80", desc:"Romaine, homemade Caesar dressing, croutons, parmesan shavings.", trending:false, featured:false, badge:null, restaurantId: 8 },
+  { id:14, name:"Chocolate Lava Cake",  category:"desserts",price:799,  oldPrice:null,  rating:4.9, reviews:3100, img:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&auto=format&fit=crop&q=80", desc:"Warm dark chocolate cake with molten center, vanilla ice cream.", trending:true, featured:true, badge:"🔥 Must Try", restaurantId: 9 },
+  { id:15, name:"NY Cheesecake",        category:"desserts",price:699,  oldPrice:null,  rating:4.7, reviews:1450, img:"https://images.unsplash.com/photo-1567171466295-4afa63d45416?w=600&auto=format&fit=crop&q=80", desc:"Creamy New York style with graham cracker crust, berry compote.", trending:false, featured:false, badge:null, restaurantId: 9 },
+  { id:16, name:"Tiramisu",             category:"desserts",price:749,  oldPrice:null,  rating:4.8, reviews:1020, img:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&auto=format&fit=crop&q=80", desc:"Classic Italian mascarpone, espresso-soaked ladyfingers, cocoa.", trending:false, featured:false, badge:null, restaurantId: 9 },
+  { id:17, name:"Mango Smoothie",       category:"drinks",  price:599,  oldPrice:null,  rating:4.6, reviews:890,  img:"https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=600&auto=format&fit=crop&q=80", desc:"Fresh mango, banana, coconut milk, honey — thick and refreshing.", trending:false, featured:false, badge:null, restaurantId: 5 },
+  { id:18, name:"Cold Brew Coffee",     category:"drinks",  price:499,  oldPrice:null,  rating:4.7, reviews:1650, img:"https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&auto=format&fit=crop&q=80", desc:"24-hour cold-brewed single origin, smooth, low-acid bold flavor.", trending:true, featured:false, badge:"Popular", restaurantId: 9 },
+  { id:19, name:"Berry Lemonade",       category:"drinks",  price:449,  oldPrice:null,  rating:4.5, reviews:720,  img:"https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&auto=format&fit=crop&q=80", desc:"Fresh squeezed lemon, mixed berries, mint, house-made syrup.", trending:false, featured:false, badge:null, restaurantId: 5 },
+  { id:20, name:"Butter Chicken",       category:"chicken", price:1499, oldPrice:1799, rating:4.8, reviews:2600, img:"https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&auto=format&fit=crop&q=80", desc:"Tender chicken in rich tomato-cream curry, fragrant basmati rice.", trending:true, featured:true, badge:"Spicy 🌶️", restaurantId: 7 },
+  { id:21, name:"Nashville Hot Chicken",category:"chicken", price:1399, oldPrice:null,  rating:4.7, reviews:1780, img:"https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=600&auto=format&fit=crop&q=80", desc:"Cayenne-glazed crispy chicken, pickles, white bread — iconic Southern heat.", trending:true, featured:false, badge:"Hot 🔥", restaurantId: 10 },
+  { id:22, name:"Chicken Shawarma",     category:"chicken", price:1199, oldPrice:null,  rating:4.6, reviews:1300, img:"https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600&auto=format&fit=crop&q=80", desc:"Marinated chicken, garlic sauce, pickles, tomato in warm pita.", trending:false, featured:false, badge:null, restaurantId: 6 },
+  { id:23, name:"Veggie Supreme Pizza", category:"pizza",   price:1399, oldPrice:null,  rating:4.5, reviews:640,  img:"https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&auto=format&fit=crop&q=80", desc:"Bell peppers, mushrooms, olives, red onion, sun-dried tomatoes.", trending:false, featured:false, badge:"Veggie", restaurantId: 1 },
+  { id:24, name:"Matcha Parfait",       category:"desserts",price:899,  oldPrice:null,  rating:4.8, reviews:760,  img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&auto=format&fit=crop&q=80", desc:"Ceremonial grade matcha gelato, red bean, mochi, granola layers.", trending:true, featured:false, badge:"New", restaurantId: 9 },
+  { id:25, name:"Spicy Beef Tacos",      category:"chicken", price:1099, oldPrice:null,  rating:4.6, reviews:840,  img:"https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?w=600&auto=format&fit=crop&q=80", desc:"Three soft tortillas with seasoned beef, lime, and fresh salsa.", trending:true, featured:false, badge:null, restaurantId: 6 },
+  { id:26, name:"Kung Pao Chicken",      category:"chicken", price:1599, oldPrice:null,  rating:4.7, reviews:1100, img:"https://images.unsplash.com/photo-1525755662778-989d0524087e?w=600&auto=format&fit=crop&q=80", desc:"Szechuan-style chicken with peanuts, vegetables, and chili peppers.", trending:false, featured:false, badge:"Spicy", restaurantId: 7 },
+  { id:27, name:"Mediterranean Bowl",    category:"salads",  price:1349, oldPrice:null,  rating:4.8, reviews:620,  img:"https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80", desc:"Quinoa, chickpeas, cucumber, olives, and feta with lemon tahini.", trending:true, featured:false, badge:"Healthy", restaurantId: 8 },
+  { id:28, name:"Grilled Sirloin Steak", category:"burgers", price:2699, oldPrice:3299, rating:4.9, reviews:450,  img:"https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80", desc:"Premium sirloin grilled to perfection with garlic butter and herbs.", trending:false, featured:true, badge:"Premium", restaurantId: 10 },
+  { id:29, name:"Strawberry Macarons",   category:"desserts",price:999,  oldPrice:null,  rating:4.7, reviews:320,  img:"https://images.unsplash.com/photo-1569864358642-9d16197022c9?w=600&auto=format&fit=crop&q=80", desc:"Delicate French almond cookies with fresh strawberry ganache.", trending:false, featured:false, badge:null, restaurantId: 9 },
+  { id:30, name:"Hawaiian Pizza",        category:"pizza",   price:1599, oldPrice:null,  rating:4.4, reviews:890,  img:"https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&auto=format&fit=crop&q=80", desc:"Classic ham and pineapple on a bed of mozzarella and tomato sauce.", trending:false, featured:false, badge:null, restaurantId: 1 },
+  { id:31, name:"Mushroom Swiss Burger", category:"burgers", price:1449, oldPrice:null,  rating:4.6, reviews:1320, img:"https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=600&auto=format&fit=crop&q=80", desc:"Juicy beef patty topped with sautéed mushrooms and melted Swiss cheese.", trending:false, featured:false, badge:null, restaurantId: 2 },
   { id:15, name:"NY Cheesecake",        category:"desserts",price:6.99,  oldPrice:null,  rating:4.7, reviews:1450, img:"https://images.unsplash.com/photo-1567171466295-4afa63d45416?w=600&auto=format&fit=crop&q=80", desc:"Creamy New York style with graham cracker crust, berry compote.", trending:false, featured:false, badge:null, restaurantId: 9 },
   { id:16, name:"Tiramisu",             category:"desserts",price:7.49,  oldPrice:null,  rating:4.8, reviews:1020, img:"https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&auto=format&fit=crop&q=80", desc:"Classic Italian mascarpone, espresso-soaked ladyfingers, cocoa.", trending:false, featured:false, badge:null, restaurantId: 9 },
   { id:17, name:"Mango Smoothie",       category:"drinks",  price:5.99,  oldPrice:null,  rating:4.6, reviews:890,  img:"https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=600&auto=format&fit=crop&q=80", desc:"Fresh mango, banana, coconut milk, honey — thick and refreshing.", trending:false, featured:false, badge:null, restaurantId: 5 },
@@ -2408,7 +2425,7 @@ const BADGES_DEF = [
   { id:'first_order', name:'First Bite', icon:'🍽️', desc:'Placed your first order', threshold: o => o >= 1 },
   { id:'food_lover', name:'Food Lover', icon:'❤️', desc:'Ordered 5 times', threshold: o => o >= 5 },
   { id:'frequent_buyer', name:'Frequent Buyer', icon:'🏆', desc:'Ordered 10 times', threshold: o => o >= 10 },
-  { id:'big_spender', name:'Big Spender', icon:'💰', desc:'Spent over $100', threshold: (o,s) => s >= 100 },
+  { id:'big_spender', name:'Big Spender', icon:'💰', desc:'Spent over Rs. 10,000', threshold: (o,s) => s >= 10000 },
   { id:'night_owl', name:'Night Owl', icon:'🦉', desc:'Ordered after midnight', threshold: o => false },
   { id:'explorer', name:'Explorer', icon:'🗺️', desc:'Tried 4+ categories', threshold: o => false },
   { id:'pizza_king', name:'Pizza King', icon:'👑', desc:'Ordered pizza 3 times', threshold: o => false },
@@ -2440,9 +2457,9 @@ function loadFromStorage() {
 
   const defaultCoupons = {
     'RUSH30': { discount: 30, type: 'percent', desc: '30% off your order', expiry: null, limit: null, used: 0 },
-    'FIRST10': { discount: 10, type: 'fixed', desc: '$10 off first order', expiry: null, limit: null, used: 0 },
+    'FIRST10': { discount: 500, type: 'fixed', desc: 'Rs. 500 off first order', expiry: null, limit: null, used: 0 },
     'SAVE15': { discount: 15, type: 'percent', desc: '15% off any order', expiry: null, limit: null, used: 0 },
-    'FREESHIP': { discount: 2.99, type: 'fixed', desc: 'Free delivery', expiry: null, limit: null, used: 0 },
+    'FREESHIP': { discount: 250, type: 'fixed', desc: 'Free delivery', expiry: null, limit: null, used: 0 },
   };
   STATE.coupons   = JSON.parse(localStorage.getItem('fr_coupons') || 'null') || defaultCoupons;
 
@@ -2453,7 +2470,7 @@ function loadFromStorage() {
   }
   // Seed default users
   if (!STATE.users.find(u => u.email === 'admin@foodrush.com')) {
-    STATE.users.push({ id:'admin', name:'Admin', email:'admin@foodrush.com', password:'admin123', isAdmin:true, points:1500, orders:12, spent:240, createdAt: Date.now() });
+    STATE.users.push({ id:'admin', name:'Admin', email:'admin@foodrush.com', password:'admin123', isAdmin:true, points:1500, orders:12, spent:24000, createdAt: Date.now() });
     saveUsers();
   }
   document.documentElement.setAttribute('data-theme', STATE.theme);
@@ -2689,10 +2706,9 @@ function renderFoodCard(item, i = 0) {
         <span class="text-xs font-semibold" style="color:var(--text-secondary)">${item.rating}</span>
         <span class="review-count">(${item.reviews.toLocaleString()})</span>
       </div>
-      <div class="flex items-center justify-between">
         <div>
-          <span class="price-tag">$${item.price.toFixed(2)}</span>
-          ${item.oldPrice ? `<span class="price-old ml-2">$${item.oldPrice.toFixed(2)}</span>` : ''}
+          <span class="price-tag">Rs. ${item.price.toLocaleString()}</span>
+          ${item.oldPrice ? `<span class="price-old ml-2">Rs. ${item.oldPrice.toLocaleString()}</span>` : ''}
         </div>
         <button class="add-btn" onclick="addToCartById(${item.id},event)">
           <i class="fa-solid fa-plus"></i> Add
@@ -2752,7 +2768,7 @@ function showAutocomplete(query) {
         <img src="${item.img}" style="width:32px;height:32px;object-fit:cover;border-radius:6px" />
         <div class="item-text">
           <span class="item-name">${item.name}</span>
-          <span class="item-meta">${item.category} • $${item.price.toFixed(2)}</span>
+          <span class="item-meta">${item.category} • Rs. ${item.price.toLocaleString()}</span>
         </div>
       </div>
       <button class="add-btn" style="padding:0.3rem 0.6rem;font-size:0.7rem" onclick="addToCartById(${item.id}, event)">
@@ -2914,7 +2930,7 @@ function renderCartItems() {
       <div class="flex-1 min-w-0">
         <div class="font-semibold text-sm truncate" style="color:var(--text-primary)">${item.name}</div>
         <div class="text-xs" style="color:var(--text-muted);text-transform:capitalize">${item.category}</div>
-        <div class="font-bold text-sm" style="color:var(--accent)">$${(item.price * item.qty).toFixed(2)}</div>
+        <div class="font-bold text-sm" style="color:var(--accent)">Rs. ${(item.price * item.qty).toLocaleString()}</div>
       </div>
       <div class="flex flex-col items-center gap-2">
         <div class="flex items-center gap-2">
@@ -2933,7 +2949,7 @@ function renderCartItems() {
 
 function renderCartTotals() {
   const subtotal = STATE.cart.reduce((s,c) => s + c.price * c.qty, 0);
-  const deliveryFee = 2.99;
+  const deliveryFee = 250;
   let discount = 0;
   if (STATE.appliedCoupon) {
     const c = STATE.coupons[STATE.appliedCoupon];
@@ -2947,11 +2963,13 @@ function renderCartTotals() {
   const totEl = document.getElementById('cart-total');
   const discRow = document.getElementById('cart-discount-row');
   const discVal = document.getElementById('cart-discount-val');
+  const delEl = document.getElementById('cart-delivery-fee');
 
-  if (subEl) subEl.textContent = `$${subtotal.toFixed(2)}`;
-  if (totEl) totEl.textContent = `$${Math.max(0,total).toFixed(2)}`;
+  if (subEl) subEl.textContent = `Rs. ${subtotal.toLocaleString()}`;
+  if (totEl) totEl.textContent = `Rs. ${Math.max(0,total).toLocaleString()}`;
+  if (delEl) delEl.textContent = `Rs. ${deliveryFee.toLocaleString()}`;
   if (discRow) discRow.style.cssText = discount > 0 ? '' : 'display:none!important';
-  if (discVal) discVal.textContent = `-$${discount.toFixed(2)}`;
+  if (discVal) discVal.textContent = `-Rs. ${discount.toLocaleString()}`;
 }
 
 function toggleCart() {
@@ -3004,14 +3022,14 @@ function openFoodModal(id) {
   const fmRes = document.getElementById('fm-restaurant');
   if (fmRes) fmRes.innerHTML = `🏪 ${res ? res.name : 'Restaurant'}`;
   document.getElementById('fm-category').textContent = '📂 ' + item.category.charAt(0).toUpperCase() + item.category.slice(1);
-  document.getElementById('fm-price').textContent = `$${item.price.toFixed(2)}`;
-  document.getElementById('fm-old-price').textContent = item.oldPrice ? `was $${item.oldPrice.toFixed(2)}` : '';
+  document.getElementById('fm-price').textContent = `Rs. ${item.price.toLocaleString()}`;
+  document.getElementById('fm-old-price').textContent = item.oldPrice ? `was Rs. ${item.oldPrice.toLocaleString()}` : '';
   document.getElementById('fm-stars').innerHTML = Array.from({length: 5}, (_, i) => `<i class="fa-star ${i < Math.floor(item.rating) ? 'fa-solid' : 'fa-regular'}"></i>`).join('');
   document.getElementById('fm-rating').textContent = `${item.rating} (${item.reviews.toLocaleString()} reviews)`;
   document.getElementById('fm-trending').style.display = item.trending ? 'inline-flex' : 'none';
   document.getElementById('fm-desc').textContent = item.desc || 'A delicious dish made with fresh ingredients.';
   document.getElementById('fm-qty').textContent = '1';
-  document.getElementById('fm-total-price').textContent = `$${item.price.toFixed(2)}`;
+  document.getElementById('fm-total-price').textContent = `Rs. ${item.price.toLocaleString()}`;
   
   // Review System Init
   renderReviews(id);
@@ -3029,7 +3047,7 @@ function closeFoodModal() {
 function fmQty(delta) {
   STATE.fmQty = Math.max(1, STATE.fmQty + delta);
   document.getElementById('fm-qty').textContent = STATE.fmQty;
-  document.getElementById('fm-total-price').textContent = `$${(STATE.fmItem.price * STATE.fmQty).toFixed(2)}`;
+  document.getElementById('fm-total-price').textContent = `Rs. ${(STATE.fmItem.price * STATE.fmQty).toLocaleString()}`;
 }
 
 /* ═══════════════════════════════════════════════
@@ -3238,7 +3256,7 @@ function renderOrderReview() {
   const itemsEl = document.getElementById('order-review-items');
   const totalsEl = document.getElementById('order-review-totals');
   const subtotal = STATE.cart.reduce((s,c) => s + c.price * c.qty, 0);
-  const deliveryFee = 2.99;
+  const deliveryFee = 250;
   const total = subtotal + deliveryFee - STATE.discount;
 
   itemsEl.innerHTML = STATE.cart.map(c => `
@@ -3247,15 +3265,15 @@ function renderOrderReview() {
         <span class="text-xs font-bold px-2 py-1 rounded-lg" style="background:var(--accent-light);color:var(--accent)">${c.qty}×</span>
         <span class="text-sm" style="color:var(--text-primary)">${c.name}</span>
       </div>
-      <span class="font-semibold text-sm" style="color:var(--text-primary)">$${(c.price*c.qty).toFixed(2)}</span>
+      <span class="font-semibold text-sm" style="color:var(--text-primary)">Rs. ${(c.price*c.qty).toLocaleString()}</span>
     </div>
   `).join('');
 
   totalsEl.innerHTML = `
-    <div class="flex justify-between text-sm mb-2" style="color:var(--text-secondary)"><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
-    <div class="flex justify-between text-sm mb-2" style="color:var(--text-secondary)"><span>Delivery</span><span>$${deliveryFee.toFixed(2)}</span></div>
-    ${STATE.discount > 0 ? `<div class="flex justify-between text-sm mb-2" style="color:var(--success)"><span>Discount</span><span>-$${STATE.discount.toFixed(2)}</span></div>` : ''}
-    <div class="flex justify-between font-black text-lg" style="color:var(--text-primary)"><span>Total</span><span class="gradient-text">$${Math.max(0,total).toFixed(2)}</span></div>
+    <div class="flex justify-between text-sm mb-2" style="color:var(--text-secondary)"><span>Subtotal</span><span>Rs. ${subtotal.toLocaleString()}</span></div>
+    <div class="flex justify-between text-sm mb-2" style="color:var(--text-secondary)"><span>Delivery</span><span>Rs. ${deliveryFee.toLocaleString()}</span></div>
+    ${STATE.discount > 0 ? `<div class="flex justify-between text-sm mb-2" style="color:var(--success)"><span>Discount</span><span>-Rs. ${STATE.discount.toLocaleString()}</span></div>` : ''}
+    <div class="flex justify-between font-black text-lg" style="color:var(--text-primary)"><span>Total</span><span class="gradient-text">Rs. ${Math.max(0,total).toLocaleString()}</span></div>
   `;
 
   const name = document.getElementById('co-name')?.value || '';
@@ -3313,7 +3331,7 @@ function applyCoupon() {
 
 function placeOrder() {
   const subtotal = STATE.cart.reduce((s,c) => s + c.price * c.qty, 0);
-  const total = Math.max(0, subtotal + 2.99 - STATE.discount);
+  const total = Math.max(0, subtotal + 250 - STATE.discount);
   const orderId = 'FR' + Date.now().toString().slice(-6);
   const order = {
     id: orderId,
@@ -3494,7 +3512,7 @@ function renderRewards() {
   const tsdEl = document.getElementById('total-spent-display');
   const bcEl  = document.getElementById('badges-count');
   if (tocEl) tocEl.textContent = orders;
-  if (tsdEl) tsdEl.textContent = `$${(spent).toFixed(0)}`;
+  if (tsdEl) tsdEl.textContent = `Rs. ${spent.toLocaleString()}`;
 
   // Badges
   const badgesGrid = document.getElementById('badges-grid');
@@ -3526,7 +3544,7 @@ function renderRewards() {
       : availCoupons.map(([code, c]) => `
         <div class="coupon-card">
           <div class="flex justify-between items-center mb-2">
-            <span class="font-black text-2xl gradient-text">${c.type === 'percent' ? c.discount+'%' : '$'+c.discount}</span>
+            <span class="font-black text-2xl gradient-text">${c.type === 'percent' ? c.discount+'%' : 'Rs. '+c.discount}</span>
             <span class="font-bold text-xs px-2 py-1 rounded" style="background:var(--accent);color:white">${code}</span>
           </div>
           <div class="text-sm mb-2" style="color:var(--text-secondary)">${c.desc}</div>
@@ -3561,7 +3579,7 @@ function renderHomeRecommendations() {
       <div class="p-3">
         <div class="font-semibold text-sm truncate mb-1" style="color:var(--text-primary)">${item.name}</div>
         <div class="flex justify-between items-center">
-          <span class="price-tag text-sm">$${item.price.toFixed(2)}</span>
+          <span class="price-tag text-sm">Rs. ${item.price.toLocaleString()}</span>
           <span class="text-xs" style="color:var(--text-muted)">★ ${item.rating}</span>
         </div>
       </div>
@@ -3663,18 +3681,18 @@ function renderProfile() {
             ${o.items.map(i => `
               <div class="flex justify-between items-center text-xs mb-2">
                 <span style="color:var(--text-secondary)">${i.qty}× ${i.name}</span>
-                <span class="font-semibold" style="color:var(--text-primary)">$${(i.price * i.qty).toFixed(2)}</span>
+                <span class="font-semibold" style="color:var(--text-primary)">Rs. ${(i.price * i.qty).toLocaleString()}</span>
               </div>
             `).join('')}
             <div class="divider my-2"></div>
             <div class="flex justify-between text-xs mb-1">
               <span style="color:var(--text-muted)">Subtotal</span>
-              <span style="color:var(--text-primary)">$${o.subtotal.toFixed(2)}</span>
+              <span style="color:var(--text-primary)">Rs. ${o.subtotal.toLocaleString()}</span>
             </div>
             ${o.discount > 0 ? `
             <div class="flex justify-between text-xs">
               <span style="color:var(--success)">Discount</span>
-              <span style="color:var(--success)">-$${o.discount.toFixed(2)}</span>
+              <span style="color:var(--success)">-Rs. ${o.discount.toLocaleString()}</span>
             </div>` : ''}
           </div>
 
@@ -3973,7 +3991,7 @@ function renderAdmin() {
 function renderAdminDashboard() {
   const totalRev = STATE.orders.reduce((s,o) => s+o.total, 0);
   document.getElementById('admin-total-orders').textContent = STATE.orders.length;
-  document.getElementById('admin-revenue').textContent = `$${totalRev.toFixed(2)}`;
+  document.getElementById('admin-revenue').textContent = `Rs. ${totalRev.toLocaleString()}`;
   document.getElementById('admin-items-count').textContent = STATE.foodData.length;
   document.getElementById('admin-users-count').textContent = STATE.users.length;
 
@@ -4009,7 +4027,7 @@ function renderAdminItems() {
         </div>
       </td>
       <td><span class="status-pill placed">${item.category}</span></td>
-      <td>$${item.price.toFixed(2)}</td>
+      <td>Rs. ${item.price.toLocaleString()}</td>
       <td>★ ${item.rating}</td>
       <td>
         <div style="display:flex;gap:8px">
@@ -4040,7 +4058,7 @@ function renderAdminOrders() {
       <td><span class="font-bold">#${o.id}</span></td>
       <td>${u?.name || 'Guest'}</td>
       <td>${o.items.map(i => i.name).join(', ').substring(0,40)}${o.items.length > 2 ? '...' : ''}</td>
-      <td class="font-bold" style="color:var(--accent)">$${o.total.toFixed(2)}</td>
+      <td class="font-bold" style="color:var(--accent)">Rs. ${o.total.toLocaleString()}</td>
       <td><span class="status-pill ${o.status}">${o.status}</span></td>
       <td>${new Date(o.createdAt).toLocaleDateString()}</td>
     </tr>`;
@@ -4053,7 +4071,7 @@ function renderAdminPromotions() {
   tbody.innerHTML = Object.entries(STATE.coupons).map(([code, p]) => `
     <tr>
       <td><span class="font-bold">${code}</span></td>
-      <td>${p.type === 'percent' ? p.discount + '%' : '$' + p.discount.toFixed(2)}</td>
+      <td>${p.type === 'percent' ? p.discount + '%' : 'Rs. ' + p.discount.toLocaleString()}</td>
       <td>${p.used || 0} / ${p.limit === null ? '∞' : p.limit}</td>
       <td>${p.expiry ? new Date(p.expiry).toLocaleDateString() : 'Never'}</td>
       <td>
@@ -4090,7 +4108,7 @@ function adminSavePromo() {
   STATE.coupons[code] = {
     discount: value,
     type: type,
-    desc: desc || (type === 'percent' ? `${value}% off` : `$${value} off`),
+    desc: desc || (type === 'percent' ? `${value}% off` : `Rs. ${value} off`),
     expiry: expiry,
     limit: limit,
     used: usage
