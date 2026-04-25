@@ -1780,6 +1780,28 @@
         </div>
       </div>
 
+      <!-- Profile Info Section -->
+      <div class="glass-card p-6 mb-6" id="profile-info-section" style="display:none">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-bold text-lg" style="color:var(--text-primary)">📍 Delivery Info</h3>
+          <button class="reorder-btn" onclick="showProfileEditModal()"><i class="fa-solid fa-pen-to-square mr-1 text-xs"></i> Edit Info</button>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-6">
+          <div>
+            <div class="text-[10px] font-bold uppercase mb-1" style="color:var(--text-muted);letter-spacing:0.05em">Delivery Location</div>
+            <div class="text-sm font-medium" id="display-location" style="color:var(--text-primary)"></div>
+          </div>
+          <div>
+            <div class="text-[10px] font-bold uppercase mb-1" style="color:var(--text-muted);letter-spacing:0.05em">Primary Phone</div>
+            <div class="text-sm font-medium" id="display-phone-primary" style="color:var(--text-primary)"></div>
+          </div>
+          <div>
+            <div class="text-[10px] font-bold uppercase mb-1" style="color:var(--text-muted);letter-spacing:0.05em">Secondary Phone</div>
+            <div class="text-sm font-medium" id="display-phone-secondary" style="color:var(--text-primary)"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- Wishlist -->
       <div class="mb-6">
         <h3 class="font-bold text-lg mb-4" style="color:var(--text-primary)">❤️ Wishlist</h3>
@@ -2153,6 +2175,7 @@
   <div class="modal" style="max-width:500px">
     <button class="modal-close" onclick="closeFoodModal()"><i class="fa-solid fa-xmark"></i></button>
     <img id="fm-img" src="" alt="" class="w-full rounded-xl mb-4" style="height:220px;object-fit:cover" loading="lazy"/>
+    <div id="fm-restaurant" class="text-xs font-bold mb-1 flex items-center gap-2" style="color:var(--accent)"></div>
     <div class="flex justify-between items-start mb-2">
       <div>
         <h2 class="text-xl font-bold" id="fm-name" style="color:var(--text-primary)"></h2>
@@ -2178,7 +2201,7 @@
       </div>
       <div class="font-black text-xl gradient-text" id="fm-total-price"></div>
     </div>
-    <button class="btn-accent w-full py-3 mb-6" onclick="addFromModal()">
+    <button class="btn-accent w-full py-3 mb-6" onclick="addFromModal(event)">
       <i class="fa-solid fa-bag-shopping mr-2"></i> Add to Cart
     </button>
 
@@ -2211,6 +2234,29 @@
         <!-- Reviews will be injected here -->
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ═══════════ PROFILE EDIT MODAL ═══════════ -->
+<div class="modal-overlay" id="profile-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button>
+    <h2 class="text-xl font-bold mb-6" style="color:var(--text-primary)">Edit Profile Information</h2>
+    
+    <div class="form-group">
+      <label class="form-label">Delivery Location</label>
+      <input type="text" id="edit-location" class="form-input" placeholder="e.g. 123 Main St, New York"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Primary Phone</label>
+      <input type="tel" id="edit-phone-primary" class="form-input" placeholder="+1 (555) 000-0000"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Secondary Phone</label>
+      <input type="tel" id="edit-phone-secondary" class="form-input" placeholder="+1 (555) 000-0000"/>
+    </div>
+    
+    <button class="btn-accent w-full py-3 mt-4" onclick="saveProfileChanges()">Save Changes</button>
   </div>
 </div>
 
@@ -2580,7 +2626,7 @@ function renderFoodCard(item, i = 0) {
   const stars = '★'.repeat(Math.floor(item.rating)) + (item.rating % 1 >= 0.5 ? '½' : '');
   const res = RESTAURANT_DATA.find(r => r.id === item.restaurantId);
   return `
-  <div class="food-card" style="animation-delay:${i * 0.05}s">
+  <div class="food-card" style="animation-delay:${i * 0.05}s" onclick="openFoodModal(${item.id})">
     <div style="position:relative;overflow:hidden">
       <img src="${item.img}" alt="${item.name}" class="food-card-img" loading="lazy" onerror="this.src='https://placehold.co/600x400/1e1e35/f97316?text=${encodeURIComponent(item.name)}'" />
       ${item.badge ? `<span class="food-badge">${item.badge}</span>` : ''}
@@ -2589,7 +2635,7 @@ function renderFoodCard(item, i = 0) {
         <i class="fa-${isWished?'solid':'regular'} fa-heart"></i>
       </button>
     </div>
-    <div class="p-4" onclick="openFoodModal(${item.id})">
+    <div class="p-4">
       <div class="flex justify-between items-start mb-1">
         <h3 class="font-bold text-sm leading-tight" style="color:var(--text-primary)">${item.name}</h3>
       </div>
@@ -2907,9 +2953,13 @@ function openFoodModal(id) {
   if (!item) return;
   STATE.fmItem = item;
   STATE.fmQty = 1;
+  const res = RESTAURANT_DATA.find(r => r.id === item.restaurantId);
+
   document.getElementById('fm-img').src = item.img;
   document.getElementById('fm-img').alt = item.name;
   document.getElementById('fm-name').textContent = item.name;
+  const fmRes = document.getElementById('fm-restaurant');
+  if (fmRes) fmRes.innerHTML = `🏪 ${res ? res.name : 'Restaurant'}`;
   document.getElementById('fm-category').textContent = '📂 ' + item.category.charAt(0).toUpperCase() + item.category.slice(1);
   document.getElementById('fm-price').textContent = `$${item.price.toFixed(2)}`;
   document.getElementById('fm-old-price').textContent = item.oldPrice ? `was $${item.oldPrice.toFixed(2)}` : '';
@@ -3493,6 +3543,7 @@ function renderProfile() {
   const tierEl   = document.getElementById('profile-tier');
   const ptsEl    = document.getElementById('profile-points-badge');
   const signinBtn= document.getElementById('profile-signin-btn');
+  const infoSection = document.getElementById('profile-info-section');
 
   if (user) {
     if (avatarEl) avatarEl.textContent = user.name.charAt(0).toUpperCase();
@@ -3503,11 +3554,18 @@ function renderProfile() {
     if (tierEl)   tierEl.textContent = `${tier} Member`;
     if (ptsEl)    ptsEl.textContent  = `⭐ ${pts} pts`;
     if (signinBtn) signinBtn.style.display = 'none';
+    if (infoSection) {
+      infoSection.style.display = 'block';
+      document.getElementById('display-location').textContent = user.deliveryAddress || 'Not set';
+      document.getElementById('display-phone-primary').textContent = user.primaryPhone || 'Not set';
+      document.getElementById('display-phone-secondary').textContent = user.secondaryPhone || 'Not set';
+    }
   } else {
     if (avatarEl) avatarEl.textContent = '?';
     if (nameEl)   nameEl.textContent = 'Guest User';
     if (emailEl)  emailEl.textContent = 'Sign in to view your profile';
     if (signinBtn) signinBtn.style.display = 'inline-block';
+    if (infoSection) infoSection.style.display = 'none';
   }
 
   // Wishlist
@@ -3699,7 +3757,7 @@ function doRegister() {
   }
   document.getElementById('err-reg-general').classList.remove('show');
 
-  const newUser = { id: 'u' + Date.now(), name, email, password, isAdmin: false, points: 50, orders: 0, spent: 0, createdAt: Date.now() };
+  const newUser = { id: 'u' + Date.now(), name, email, password, isAdmin: false, points: 50, orders: 0, spent: 0, createdAt: Date.now(), deliveryAddress: '', primaryPhone: '', secondaryPhone: '' };
   STATE.users.push(newUser);
   saveUsers();
   STATE.currentUser = newUser;
@@ -4039,6 +4097,9 @@ document.getElementById('auth-modal').addEventListener('click', function(e) {
 document.getElementById('food-modal').addEventListener('click', function(e) {
   if (e.target === this) closeFoodModal();
 });
+document.getElementById('profile-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeProfileModal();
+});
 
 /* ═══════════════════════════════════════════════
    23. KEYBOARD SHORTCUTS
@@ -4047,6 +4108,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeAuthModal();
     closeFoodModal();
+    closeProfileModal();
     const sidebar = document.getElementById('cart-sidebar');
     if (sidebar.classList.contains('open')) toggleCart();
   }
