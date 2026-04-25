@@ -1099,6 +1099,7 @@
       <span class="nav-link" onclick="navigate('tracking')" data-page="tracking">Track Order</span>
       <span class="nav-link" onclick="navigate('rewards')" data-page="rewards">Rewards</span>
       <span class="nav-link" onclick="navigate('profile')" data-page="profile">Profile</span>
+      <span class="nav-link" onclick="navigate('about')" data-page="about">About</span>
     </div>
 
     <!-- Nav Actions -->
@@ -1290,8 +1291,33 @@
 ════════════════════════════════════ -->
 <div id="page-restaurants" class="page">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-    <h1 class="section-title mb-2">Explore Restaurants</h1>
-    <p class="section-sub mb-8">Discover top-rated eateries near you</p>
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+      <div>
+        <h1 class="section-title">Explore Restaurants</h1>
+        <p class="section-sub mt-1">Discover top-rated eateries near you</p>
+      </div>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto">
+        <div class="search-wrap flex-1 w-full sm:w-64">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="res-search" class="form-input" placeholder="Search by name or cuisine..." oninput="renderRestaurants()"/>
+        </div>
+        <div class="flex items-center gap-3">
+          <select class="sort-select" id="res-rating-filter" onchange="renderRestaurants()" title="Filter by rating">
+            <option value="0">All Ratings</option>
+            <option value="4.0">4.0+ ⭐</option>
+            <option value="4.5">4.5+ ⭐</option>
+            <option value="4.7">4.7+ ⭐</option>
+            <option value="4.8">4.8+ ⭐</option>
+          </select>
+          <select class="sort-select" id="res-time-filter" onchange="renderRestaurants()" title="Filter by delivery time">
+            <option value="0">Any Time</option>
+            <option value="20">Under 20 min</option>
+            <option value="30">Under 30 min</option>
+            <option value="45">Under 45 min</option>
+          </select>
+        </div>
+      </div>
+    </div>
     
     <div class="food-grid" id="restaurants-grid">
       <!-- Restaurant cards injected here -->
@@ -1790,6 +1816,75 @@
   </div><!-- /page-profile -->
 
   <!-- ════════════════════════════════════
+       PAGE: ABOUT
+  ════════════════════════════════════ -->
+  <div id="page-about" class="page">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+      <div class="text-center mb-12">
+        <h1 class="section-title text-4xl mb-4">About <span class="gradient-text">FoodRush</span></h1>
+        <p class="section-sub text-lg max-w-2xl mx-auto">Connecting you with your favorite flavors, delivered with speed and care.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <h2 class="text-2xl font-bold mb-4" style="color:var(--text-primary)">Our Application</h2>
+          <p class="mb-6 leading-relaxed" style="color:var(--text-secondary)">
+            FoodRush is a premium food ordering and delivery platform designed to provide a seamless experience for food lovers. 
+            Built with a focus on modern design and high interactivity, our application bridges the gap between the city's finest kitchens and your doorstep.
+          </p>
+          
+          <div class="space-y-4 mb-8">
+            <h3 class="font-bold" style="color:var(--text-primary)">Contact Information</h3>
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-phone" style="color:var(--accent)"></i>
+              <span style="color:var(--text-secondary)">+1 (800) FOOD-RUSH</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-envelope" style="color:var(--accent)"></i>
+              <span style="color:var(--text-secondary)">support@foodrush.com</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" alt="Premium Pizza" class="rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" alt="Gourmet Burger" class="rounded-2xl shadow-lg mt-8 hover:scale-105 transition-transform duration-300" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1563612116625-3012372fccce?w=400&q=80" alt="Fresh Sushi" class="rounded-2xl shadow-lg -mt-8 hover:scale-105 transition-transform duration-300" loading="lazy"/>
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=80" alt="Delicious Pasta" class="rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300" loading="lazy"/>
+        </div>
+      </div>
+
+      <!-- Meet the Team -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold mb-8 text-center" style="color:var(--text-primary)">Meet the <span class="gradient-text">Team</span></h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <!-- Member 1 -->
+          <div class="glass-card p-6 text-center">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&q=80" alt="Alex Rivera" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-brand-500" loading="lazy"/>
+            <h3 class="font-bold" style="color:var(--text-primary)">Alex Rivera</h3>
+            <p class="text-xs font-semibold gradient-text uppercase mb-2">Founder & CEO</p>
+            <p class="text-xs" style="color:var(--text-secondary)">Visionary behind FoodRush, passionate about connecting people with great food.</p>
+          </div>
+          <!-- Member 2 -->
+          <div class="glass-card p-6 text-center">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&q=80" alt="Sarah Chen" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-brand-500" loading="lazy"/>
+            <h3 class="font-bold" style="color:var(--text-primary)">Sarah Chen</h3>
+            <p class="text-xs font-semibold gradient-text uppercase mb-2">CTO</p>
+            <p class="text-xs" style="color:var(--text-secondary)">Leading our tech team to build the smoothest delivery platform in the world.</p>
+          </div>
+          <!-- Member 3 -->
+          <div class="glass-card p-6 text-center">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&q=80" alt="Marcus Johnson" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-brand-500" loading="lazy"/>
+            <h3 class="font-bold" style="color:var(--text-primary)">Marcus Johnson</h3>
+            <p class="text-xs font-semibold gradient-text uppercase mb-2">Head of Operations</p>
+            <p class="text-xs" style="color:var(--text-secondary)">Ensuring every order is delivered hot and on time, every single day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /page-about -->
+
+  <!-- ════════════════════════════════════
        PAGE: ADMIN
   ════════════════════════════════════ -->
   <div id="page-admin" class="page">
@@ -1943,6 +2038,7 @@
   <button class="mob-nav-btn" onclick="toggleCart()" style="position:relative"><i class="fa-solid fa-bag-shopping"></i><span id="mob-cart-badge" style="display:none;position:absolute;top:2px;right:16px" class="cart-badge">0</span>Cart</button>
   <button class="mob-nav-btn" onclick="navigate('rewards')" data-mob="rewards"><i class="fa-solid fa-trophy"></i>Rewards</button>
   <button class="mob-nav-btn" onclick="navigate('profile')" data-mob="profile"><i class="fa-solid fa-user"></i>Profile</button>
+  <button class="mob-nav-btn" onclick="navigate('about')" data-mob="about"><i class="fa-solid fa-circle-info"></i>About</button>
 </nav>
 
 <!-- ═══════════ CART OVERLAY ═══════════ -->
@@ -2341,6 +2437,7 @@ function navigate(page) {
   if (page === 'restaurants') renderRestaurants();
   if (page === 'admin') { checkAdminAccess(); renderAdmin(); }
   if (page === 'home') renderTrending();
+  if (page === 'about') { /* Static page content */ }
 }
 
 function navigateToMenuCat(cat) {
@@ -2351,7 +2448,41 @@ function navigateToMenuCat(cat) {
 function renderRestaurants() {
   const grid = document.getElementById('restaurants-grid');
   if (!grid) return;
-  grid.innerHTML = RESTAURANT_DATA.map(res => `
+
+  const minRating = parseFloat(document.getElementById('res-rating-filter')?.value || 0);
+  const searchQuery = document.getElementById('res-search')?.value.toLowerCase().trim() || '';
+  const maxTime = parseInt(document.getElementById('res-time-filter')?.value || 0);
+
+  const filtered = RESTAURANT_DATA.filter(res => {
+    // Rating filter
+    if (res.rating < minRating) return false;
+
+    // Search filter (Name or Cuisine)
+    if (searchQuery && !res.name.toLowerCase().includes(searchQuery) && !res.cuisine.toLowerCase().includes(searchQuery)) {
+      return false;
+    }
+
+    // Time filter (Extract the upper bound of the delivery time, e.g. "20-30 min" -> 30)
+    if (maxTime > 0) {
+      const times = res.deliveryTime.match(/\d+/g);
+      const resMaxTime = times ? parseInt(times[times.length - 1]) : 999;
+      if (resMaxTime > maxTime) return false;
+    }
+
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div class="text-center py-16" style="grid-column: 1 / -1">
+        <div style="font-size:3rem;margin-bottom:1rem">🔍</div>
+        <h3 class="font-bold text-xl mb-2" style="color:var(--text-primary)">No restaurants match your filters</h3>
+        <p style="color:var(--text-muted)">Try adjusting your search or filter criteria</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(res => `
     <div class="glass-card overflow-hidden cursor-pointer" onclick="selectRestaurant(${res.id})">
       <img src="${res.img}" alt="${res.name}" style="width:100%;height:180px;object-fit:cover" />
       <div class="p-4">
