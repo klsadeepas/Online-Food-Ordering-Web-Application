@@ -2250,10 +2250,12 @@
     <div class="form-group">
       <label class="form-label">Primary Phone</label>
       <input type="tel" id="edit-phone-primary" class="form-input" placeholder="+1 (555) 000-0000"/>
+      <div class="form-error" id="err-edit-phone-primary">Enter a valid phone number</div>
     </div>
     <div class="form-group">
       <label class="form-label">Secondary Phone</label>
       <input type="tel" id="edit-phone-secondary" class="form-input" placeholder="+1 (555) 000-0000"/>
+      <div class="form-error" id="err-edit-phone-secondary">Enter a valid phone number</div>
     </div>
     
     <button class="btn-accent w-full py-3 mt-4" onclick="saveProfileChanges()">Save Changes</button>
@@ -3673,6 +3675,60 @@ function reorder(orderId) {
   updateCartBadge();
   showToast('Items re-added to cart! 🛒', 'success');
   toggleCart();
+}
+
+function showProfileEditModal() {
+  const user = STATE.currentUser;
+  if (!user) {
+    showToast('Please sign in to edit profile', 'warning');
+    return;
+  }
+  document.getElementById('edit-location').value = user.deliveryAddress || '';
+  document.getElementById('edit-phone-primary').value = user.primaryPhone || '';
+  document.getElementById('edit-phone-secondary').value = user.secondaryPhone || '';
+  
+  document.getElementById('profile-modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProfileModal() {
+  document.getElementById('profile-modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function saveProfileChanges() {
+  const user = STATE.currentUser;
+  if (!user) return;
+
+  const location = document.getElementById('edit-location').value.trim();
+  const phonePrimary = document.getElementById('edit-phone-primary').value.trim();
+  const phoneSecondary = document.getElementById('edit-phone-secondary').value.trim();
+
+  // Basic validation
+  if (phonePrimary && !/^\+?[\d\s-]{7,}$/.test(phonePrimary)) {
+    document.getElementById('err-edit-phone-primary').classList.add('show');
+    return;
+  } else {
+    document.getElementById('err-edit-phone-primary').classList.remove('show');
+  }
+
+  // Update STATE
+  user.deliveryAddress = location;
+  user.primaryPhone = phonePrimary;
+  user.secondaryPhone = phoneSecondary;
+
+  // Update in STATE.users array as well
+  const userIdx = STATE.users.findIndex(u => u.id === user.id);
+  if (userIdx !== -1) {
+    STATE.users[userIdx] = { ...user };
+  }
+
+  saveUsers();
+  localStorage.setItem('fr_current_user', JSON.stringify(user));
+  
+  renderProfile();
+  closeProfileModal();
+  showToast('Profile information updated!', 'success');
 }
 
 function viewOrderTracking() {
