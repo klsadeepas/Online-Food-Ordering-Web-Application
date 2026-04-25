@@ -797,6 +797,33 @@
     .status-pill.placed { background: rgba(59,130,246,0.15); color: var(--info); }
 
     /* ═══════════════════════════════════════════════
+       SEARCH AUTOCOMPLETE
+    ═══════════════════════════════════════════════ */
+    .search-autocomplete {
+      position: absolute;
+      top: calc(100% + 5px); left: 0; right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      z-index: 1001;
+      overflow: hidden;
+      box-shadow: var(--shadow-glass);
+      backdrop-filter: var(--blur);
+    }
+    .autocomplete-item {
+      padding: 0.75rem 1rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      cursor: pointer; transition: all var(--transition);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .autocomplete-item:last-child { border-bottom: none; }
+    .autocomplete-item:hover, .autocomplete-item.selected { background: var(--accent-light); }
+    .autocomplete-item .item-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+    .autocomplete-item .item-text { display: flex; flex-direction: column; min-width: 0; }
+    .autocomplete-item .item-name { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .autocomplete-item .item-meta { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ═══════════════════════════════════════════════
        SEARCH BAR
     ═══════════════════════════════════════════════ */
     .search-wrap {
@@ -1297,10 +1324,11 @@
       <div class="flex flex-col sm:flex-row gap-3 mb-6">
         <div class="search-wrap flex-1">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="menu-search" class="form-input" placeholder="Search dishes, cuisines..." oninput="debouncedSearch(this.value)"/>
+          <input type="text" id="menu-search" class="form-input" placeholder="Search dishes, cuisines..." oninput="debouncedSearch(this.value)" onkeydown="handleSearchKeydown(event)"/>
           <button class="voice-btn" id="voice-btn" onclick="startVoiceSearch()" title="Voice search">
             <i class="fa-solid fa-microphone"></i>
           </button>
+          <div id="search-autocomplete" class="search-autocomplete hidden"></div>
         </div>
         <select class="sort-select" id="sort-select" onchange="applySortFilter()">
           <option value="default">Sort: Default</option>
@@ -2452,13 +2480,86 @@ function applySortFilter() {
    10. SEARCH (DEBOUNCED + VOICE)
 ═══════════════════════════════════════════════ */
 let searchDebounceTimer = null;
+let autocompleteIndex = -1;
+
 function debouncedSearch(val) {
   clearTimeout(searchDebounceTimer);
   searchDebounceTimer = setTimeout(() => {
     STATE.searchQuery = val.trim();
+    if (STATE.searchQuery.length > 1) {
+      showAutocomplete(STATE.searchQuery);
+    } else {
+      hideAutocomplete();
+    }
     applyFilters();
-  }, 300);
+  }, 200);
 }
+
+function showAutocomplete(query) {
+  const panel = document.getElementById('search-autocomplete');
+  if (!panel) return;
+  const q = query.toLowerCase();
+  const matches = STATE.foodData.filter(f => 
+    f.name.toLowerCase().includes(q) || f.category.toLowerCase().includes(q)
+  ).slice(0, 6);
+
+  if (matches.length === 0) { hideAutocomplete(); return; }
+  autocompleteIndex = -1;
+  panel.innerHTML = matches.map(item => `
+    <div class="autocomplete-item" data-id="${item.id}" onclick="openFoodModal(${item.id}); hideAutocomplete()">
+      <div class="item-info">
+        <img src="${item.img}" style="width:32px;height:32px;object-fit:cover;border-radius:6px" />
+        <div class="item-text">
+          <span class="item-name">${item.name}</span>
+          <span class="item-meta">${item.category} • $${item.price.toFixed(2)}</span>
+        </div>
+      </div>
+      <button class="add-btn" style="padding:0.3rem 0.6rem;font-size:0.7rem" onclick="event.stopPropagation(); addToCartById(${item.id}); hideAutocomplete()">
+        <i class="fa-solid fa-plus"></i> Add
+      </button>
+    </div>
+  `).join('');
+  panel.classList.remove('hidden');
+}
+
+function hideAutocomplete() {
+  const panel = document.getElementById('search-autocomplete');
+  if (panel) panel.classList.add('hidden');
+  autocompleteIndex = -1;
+}
+
+function handleSearchKeydown(e) {
+  const panel = document.getElementById('search-autocomplete');
+  if (!panel || panel.classList.contains('hidden')) return;
+  const items = panel.querySelectorAll('.autocomplete-item');
+  if (!items.length) return;
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    autocompleteIndex = (autocompleteIndex + 1) % items.length;
+    updateAutocompleteSelection(items);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    autocompleteIndex = (autocompleteIndex - 1 + items.length) % items.length;
+    updateAutocompleteSelection(items);
+  } else if (e.key === 'Enter' && autocompleteIndex > -1) {
+    e.preventDefault();
+    items[autocompleteIndex].click();
+  } else if (e.key === 'Escape') {
+    hideAutocomplete();
+  }
+}
+
+function updateAutocompleteSelection(items) {
+  items.forEach((item, idx) => {
+    item.classList.toggle('selected', idx === autocompleteIndex);
+    if (idx === autocompleteIndex) item.scrollIntoView({ block: 'nearest' });
+  });
+}
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-wrap')) hideAutocomplete();
+});
 
 let recognition = null;
 function startVoiceSearch() {
