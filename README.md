@@ -12,7 +12,7 @@ relying on external frameworks.
 
 # Screenshot of web application
 
-#                         Image 1
+## Image 1
 
 ![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/1.png)
 
