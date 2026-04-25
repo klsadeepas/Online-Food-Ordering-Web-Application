@@ -1466,7 +1466,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Phone</label>
-              <input type="tel" id="co-phone" class="form-input" placeholder="+1 (555) 000-0000"/>
+              <input type="tel" id="co-phone" class="form-input" placeholder="07X XXX XXXX"/>
               <div class="form-error" id="err-co-phone">Valid phone required</div>
             </div>
           </div>
@@ -1925,6 +1925,7 @@
         <button class="tab-btn" onclick="adminTab('items',this)">🍽️ Menu Items</button>
         <button class="tab-btn" onclick="adminTab('orders',this)">📦 Orders</button>
         <button class="tab-btn" onclick="adminTab('promotions',this)">🎫 Promotions</button>
+        <button class="tab-btn" onclick="adminTab('restaurants',this)">🏪 Restaurants</button>
       </div>
 
       <!-- Dashboard Panel -->
@@ -2043,6 +2044,40 @@
                 </tr>
               </thead>
               <tbody id="admin-promotions-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Restaurants Panel -->
+      <div id="admin-restaurants" class="admin-tab-panel" style="display:none">
+        <!-- Add/Edit form -->
+        <div class="glass-card p-6 mb-6">
+          <h3 class="font-bold mb-4" style="color:var(--text-primary)" id="res-form-title">🏪 Manage Restaurant</h3>
+          <div class="admin-form-grid">
+            <div class="form-group"><label class="form-label">Name</label><input type="text" id="ar-name" class="form-input" placeholder="Restaurant name"/></div>
+            <div class="form-group"><label class="form-label">Cuisine</label><input type="text" id="ar-cuisine" class="form-input" placeholder="e.g. Italian, Asian"/></div>
+            <div class="form-group"><label class="form-label">Rating</label><input type="number" id="ar-rating" class="form-input" placeholder="4.5" step="0.1" min="1" max="5"/></div>
+            <div class="form-group"><label class="form-label">Delivery Time</label><input type="text" id="ar-time" class="form-input" placeholder="e.g. 20-30 min"/></div>
+            <div class="form-group"><label class="form-label">Location</label><input type="text" id="ar-location" class="form-input" placeholder="e.g. Colombo 03"/></div>
+            <div class="form-group"><label class="form-label">Image URL</label><input type="text" id="ar-img" class="form-input" placeholder="https://..."/></div>
+          </div>
+          <div class="flex gap-3">
+            <button class="btn-accent px-6 py-2" onclick="adminSaveRestaurant()">Save Restaurant</button>
+            <button class="btn-ghost px-6 py-2" onclick="adminCancelRestaurantEdit()">Cancel</button>
+          </div>
+          <input type="hidden" id="ar-editing-id" value=""/>
+        </div>
+        <!-- Restaurants Table -->
+        <div class="glass-card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Restaurant</th><th>Cuisine</th><th>Rating</th><th>Location</th><th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-restaurants-table"></tbody>
             </table>
           </div>
         </div>
@@ -2249,12 +2284,12 @@
     </div>
     <div class="form-group">
       <label class="form-label">Primary Phone</label>
-      <input type="tel" id="edit-phone-primary" class="form-input" placeholder="+1 (555) 000-0000"/>
+      <input type="tel" id="edit-phone-primary" class="form-input" placeholder="07X XXX XXXX"/>
       <div class="form-error" id="err-edit-phone-primary">Enter a valid phone number</div>
     </div>
     <div class="form-group">
       <label class="form-label">Secondary Phone</label>
-      <input type="tel" id="edit-phone-secondary" class="form-input" placeholder="+1 (555) 000-0000"/>
+      <input type="tel" id="edit-phone-secondary" class="form-input" placeholder="07X XXX XXXX"/>
       <div class="form-error" id="err-edit-phone-secondary">Enter a valid phone number</div>
     </div>
     
@@ -2351,20 +2386,21 @@ let STATE = {
   coupons: {},
   currentRestaurant: null,
   orderHistoryFilter: 'all',
+  restaurants: [],
 };
 
-// Mock Restaurant Database
-const RESTAURANT_DATA = [
-  { id: 1, name: "Pizza Palace", rating: 4.8, cuisine: "Italian", deliveryTime: "20-30 min", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80" },
-  { id: 2, name: "Burger Haven", rating: 4.7, cuisine: "American", deliveryTime: "15-25 min", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&auto=format&fit=crop&q=80" },
-  { id: 3, name: "Sushi Zen", rating: 4.9, cuisine: "Japanese", deliveryTime: "30-40 min", img: "https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=600&auto=format&fit=crop&q=80" },
-  { id: 4, name: "Pasta Express", rating: 4.5, cuisine: "Italian", deliveryTime: "25-35 min", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&auto=format&fit=crop&q=80" },
-  { id: 5, name: "Chicken Delight", rating: 4.6, cuisine: "Fast Food", deliveryTime: "20-30 min", img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=600&auto=format&fit=crop&q=80" },
-  { id: 6, name: "Taco Town", rating: 4.4, cuisine: "Mexican", deliveryTime: "25-35 min", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&auto=format&fit=crop&q=80" },
-  { id: 7, name: "Wok & Roll", rating: 4.6, cuisine: "Asian", deliveryTime: "20-30 min", img: "https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=600&auto=format&fit=crop&q=80" },
-  { id: 8, name: "Green Garden", rating: 4.5, cuisine: "Healthy", deliveryTime: "15-25 min", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80" },
-  { id: 9, name: "Sweet Tooth", rating: 4.9, cuisine: "Desserts", deliveryTime: "10-20 min", img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&auto=format&fit=crop&q=80" },
-  { id: 10, name: "Steakhouse Prime", rating: 4.7, cuisine: "Steakhouse", deliveryTime: "35-45 min", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80" }
+// Default Restaurant Database
+const RESTAURANT_DATA_DEFAULT = [
+  { id: 1, name: "Pizza Palace", rating: 4.8, cuisine: "Italian", deliveryTime: "20-30 min", location: "Colombo 03", img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80" },
+  { id: 2, name: "Burger Haven", rating: 4.7, cuisine: "American", deliveryTime: "15-25 min", location: "Kandy Central", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&auto=format&fit=crop&q=80" },
+  { id: 3, name: "Sushi Zen", rating: 4.9, cuisine: "Japanese", deliveryTime: "30-40 min", location: "Galle Fort", img: "https://images.unsplash.com/photo-1579027989536-b7b1f875659b?w=600&auto=format&fit=crop&q=80" },
+  { id: 4, name: "Pasta Express", rating: 4.5, cuisine: "Italian", deliveryTime: "25-35 min", location: "Negombo Beach", img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&auto=format&fit=crop&q=80" },
+  { id: 5, name: "Chicken Delight", rating: 4.6, cuisine: "Fast Food", deliveryTime: "20-30 min", location: "Jaffna Town", img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=600&auto=format&fit=crop&q=80" },
+  { id: 6, name: "Taco Town", rating: 4.4, cuisine: "Mexican", deliveryTime: "25-35 min", location: "Matara City", img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&auto=format&fit=crop&q=80" },
+  { id: 7, name: "Wok & Roll", rating: 4.6, cuisine: "Asian", deliveryTime: "20-30 min", location: "Colombo 07", img: "https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=600&auto=format&fit=crop&q=80" },
+  { id: 8, name: "Green Garden", rating: 4.5, cuisine: "Healthy", deliveryTime: "15-25 min", location: "Battaramulla", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80" },
+  { id: 9, name: "Sweet Tooth", rating: 4.9, cuisine: "Desserts", deliveryTime: "10-20 min", location: "Mount Lavinia", img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&auto=format&fit=crop&q=80" },
+  { id: 10, name: "Steakhouse Prime", rating: 4.7, cuisine: "Steakhouse", deliveryTime: "35-45 min", location: "Colombo 05", img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80" }
 ];
 
 // Badges
@@ -2399,6 +2435,7 @@ function loadFromStorage() {
   STATE.orders    = JSON.parse(localStorage.getItem('fr_orders') || '[]');
   STATE.reviews   = JSON.parse(localStorage.getItem('fr_reviews') || '{}');
   STATE.foodData  = JSON.parse(localStorage.getItem('fr_foods') || 'null') || FOOD_DATA_DEFAULT;
+  STATE.restaurants = JSON.parse(localStorage.getItem('fr_restaurants') || 'null') || RESTAURANT_DATA_DEFAULT;
   STATE.theme     = localStorage.getItem('fr_theme') || 'dark';
 
   const defaultCoupons = {
@@ -2429,6 +2466,7 @@ function saveUsers()   { localStorage.setItem('fr_users', JSON.stringify(STATE.u
 function saveOrders()  { localStorage.setItem('fr_orders', JSON.stringify(STATE.orders)); }
 function saveReviews() { localStorage.setItem('fr_reviews', JSON.stringify(STATE.reviews)); }
 function saveCoupons() { localStorage.setItem('fr_coupons', JSON.stringify(STATE.coupons)); }
+function saveRestaurants() { localStorage.setItem('fr_restaurants', JSON.stringify(STATE.restaurants)); }
 
 /* ═══════════════════════════════════════════════
    4. ONLINE / OFFLINE DETECTION
@@ -2501,7 +2539,7 @@ function renderRestaurants() {
   const searchQuery = document.getElementById('res-search')?.value.toLowerCase().trim() || '';
   const maxTime = parseInt(document.getElementById('res-time-filter')?.value || 0);
 
-  const filtered = RESTAURANT_DATA.filter(res => {
+  const filtered = STATE.restaurants.filter(res => {
     // Rating filter
     if (res.rating < minRating) return false;
 
@@ -2538,7 +2576,10 @@ function renderRestaurants() {
           <h3 class="font-bold text-lg" style="color:var(--text-primary)">${res.name}</h3>
           <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2 py-1 rounded">⭐ ${res.rating}</span>
         </div>
-        <div class="text-sm mb-3" style="color:var(--text-muted)">${res.cuisine} • ${res.deliveryTime}</div>
+        <div class="text-sm mb-1" style="color:var(--text-muted)">${res.cuisine} • ${res.deliveryTime}</div>
+        <div class="text-xs mb-3 flex items-center gap-1" style="color:var(--accent)">
+          <i class="fa-solid fa-location-dot"></i> ${res.location}
+        </div>
         <button class="btn-ghost w-full py-2 text-xs">View Menu</button>
       </div>
     </div>
@@ -2546,7 +2587,7 @@ function renderRestaurants() {
 }
 
 function selectRestaurant(id) {
-  const res = RESTAURANT_DATA.find(r => r.id === id);
+  const res = STATE.restaurants.find(r => r.id === id);
   if (!res) return;
   STATE.currentRestaurant = id;
   navigate('menu');
@@ -2557,7 +2598,7 @@ function selectRestaurant(id) {
   
   if (banner && bName && bCuis) {
     bName.textContent = res.name;
-    bCuis.textContent = `${res.cuisine} • Delivery in ${res.deliveryTime}`;
+    bCuis.textContent = `${res.cuisine} • ${res.location} • Delivery in ${res.deliveryTime}`;
     banner.style.display = 'flex';
   }
   applyFilters();
@@ -2626,7 +2667,7 @@ function renderFoodGrid(containerId, data) {
 function renderFoodCard(item, i = 0) {
   const isWished = STATE.wishlist.includes(item.id);
   const stars = '★'.repeat(Math.floor(item.rating)) + (item.rating % 1 >= 0.5 ? '½' : '');
-  const res = RESTAURANT_DATA.find(r => r.id === item.restaurantId);
+  const res = STATE.restaurants.find(r => r.id === item.restaurantId);
   return `
   <div class="food-card" style="animation-delay:${i * 0.05}s" onclick="openFoodModal(${item.id})">
     <div style="position:relative;overflow:hidden">
@@ -2955,7 +2996,7 @@ function openFoodModal(id) {
   if (!item) return;
   STATE.fmItem = item;
   STATE.fmQty = 1;
-  const res = RESTAURANT_DATA.find(r => r.id === item.restaurantId);
+  const res = STATE.restaurants.find(r => r.id === item.restaurantId);
 
   document.getElementById('fm-img').src = item.img;
   document.getElementById('fm-img').alt = item.name;
@@ -3158,7 +3199,8 @@ function checkoutNextStep(currentStep) {
       if (el) { el.classList.toggle('show', show); el.previousElementSibling.classList.toggle('error', show); }
     };
     if (!name) { showErr('err-co-name', true); valid = false; } else showErr('err-co-name', false);
-    if (!phone) { showErr('err-co-phone', true); valid = false; } else showErr('err-co-phone', false);
+    const slPhoneRegex = /^(?:\+94|0)[\d\s-]{9,12}$/;
+    if (!phone || !slPhoneRegex.test(phone)) { showErr('err-co-phone', true); valid = false; } else showErr('err-co-phone', false);
     if (!address) { showErr('err-co-address', true); valid = false; } else showErr('err-co-address', false);
     if (!valid) return;
     checkoutGoTo(2);
@@ -3704,8 +3746,9 @@ function saveProfileChanges() {
   const phonePrimary = document.getElementById('edit-phone-primary').value.trim();
   const phoneSecondary = document.getElementById('edit-phone-secondary').value.trim();
 
-  // Basic validation
-  if (phonePrimary && !/^\+?[\d\s-]{7,}$/.test(phonePrimary)) {
+  // Validation for Sri Lankan phone numbers
+  const slPhoneRegex = /^(?:\+94|0)[\d\s-]{9,12}$/;
+  if (phonePrimary && !slPhoneRegex.test(phonePrimary)) {
     document.getElementById('err-edit-phone-primary').classList.add('show');
     return;
   } else {
@@ -3919,6 +3962,7 @@ function adminTab(tab, el) {
   if (tab === 'items') renderAdminItems();
   if (tab === 'orders') renderAdminOrders();
   if (tab === 'promotions') renderAdminPromotions();
+  if (tab === 'restaurants') renderAdminRestaurants();
 }
 
 function renderAdmin() {
@@ -4078,6 +4122,97 @@ function adminEditPromo(code) {
   document.getElementById('ap-editing-code').value = code;
   document.getElementById('promo-form-title').textContent = '🎫 Edit Promo Code';
   window.scrollTo(0, 0);
+}
+
+function renderAdminRestaurants() {
+  const tbody = document.getElementById('admin-restaurants-table');
+  if (!tbody) return;
+  tbody.innerHTML = STATE.restaurants.map(res => `
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="${res.img}" style="width:40px;height:40px;object-fit:cover;border-radius:8px" loading="lazy" />
+          <span>${res.name}</span>
+        </div>
+      </td>
+      <td>${res.cuisine}</td>
+      <td>★ ${res.rating}</td>
+      <td>${res.location}</td>
+      <td>
+        <div style="display:flex;gap:8px">
+          <button class="reorder-btn" onclick="adminEditRestaurant(${res.id})"><i class="fa-solid fa-pen mr-1"></i>Edit</button>
+          <button onclick="adminDeleteRestaurant(${res.id})" style="background:rgba(239,68,68,0.1);color:var(--error);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:0.3rem 0.75rem;font-size:0.8rem;cursor:pointer;font-weight:600">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function adminSaveRestaurant() {
+  const name     = document.getElementById('ar-name').value.trim();
+  const cuisine  = document.getElementById('ar-cuisine').value.trim();
+  const rating   = parseFloat(document.getElementById('ar-rating').value);
+  const time     = document.getElementById('ar-time').value.trim();
+  const location = document.getElementById('ar-location').value.trim();
+  const img      = document.getElementById('ar-img').value.trim();
+  const editId   = document.getElementById('ar-editing-id').value;
+
+  if (!name || !cuisine || !rating) { showToast('Fill required fields', 'error'); return; }
+
+  const restaurantData = {
+    name, cuisine, rating, 
+    deliveryTime: time || '20-30 min', 
+    location: location || 'Colombo', 
+    img: img || 'https://placehold.co/600x400/1e1e35/f97316?text=New+Restaurant'
+  };
+
+  if (editId) {
+    const idx = STATE.restaurants.findIndex(r => r.id == editId);
+    if (idx !== -1) {
+      STATE.restaurants[idx] = { ...STATE.restaurants[idx], ...restaurantData };
+      showToast('Restaurant updated!', 'success');
+    }
+  } else {
+    const newRes = { id: Date.now(), ...restaurantData };
+    STATE.restaurants.push(newRes);
+    showToast('Restaurant added!', 'success');
+  }
+
+  saveRestaurants();
+  adminCancelRestaurantEdit();
+  renderAdminRestaurants();
+}
+
+function adminEditRestaurant(id) {
+  const res = STATE.restaurants.find(r => r.id === id);
+  if (!res) return;
+  document.getElementById('ar-name').value = res.name;
+  document.getElementById('ar-cuisine').value = res.cuisine;
+  document.getElementById('ar-rating').value = res.rating;
+  document.getElementById('ar-time').value = res.deliveryTime;
+  document.getElementById('ar-location').value = res.location;
+  document.getElementById('ar-img').value = res.img;
+  document.getElementById('ar-editing-id').value = res.id;
+  document.getElementById('res-form-title').textContent = '✏️ Edit Restaurant';
+  window.scrollTo(0, 0);
+}
+
+function adminDeleteRestaurant(id) {
+  if (!confirm('Delete this restaurant? This will not delete associated food items.')) return;
+  STATE.restaurants = STATE.restaurants.filter(r => r.id !== id);
+  saveRestaurants();
+  renderAdminRestaurants();
+  showToast('Restaurant deleted', 'info');
+}
+
+function adminCancelRestaurantEdit() {
+  ['ar-name','ar-cuisine','ar-rating','ar-time','ar-location','ar-img','ar-editing-id'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('res-form-title').textContent = '🏪 Manage Restaurant';
 }
 
 function adminCancelPromoEdit() {
