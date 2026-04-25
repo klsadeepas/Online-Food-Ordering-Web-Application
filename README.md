@@ -38,17 +38,13 @@ relying on external frameworks.
 
 ## Image 7
 
-![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/7.png)
+![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/8.png)
 
 ## Image 8
 
-![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/8.png)
-
-## Image 9
-
 ![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/9.png)
 
-## Image 10
 
-![image alt](https://github.com/klsadeepas/Online-Food-Ordering-Web-Application/blob/9d6fe89b7fc0260a770ab45d87d998351a08c528/images/10.png)
+
+
 
